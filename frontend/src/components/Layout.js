@@ -26,7 +26,8 @@ import {
   InputGroup,
   InputRightElement,
   Input,
-  useFullscreen
+  useFullscreen,
+  Divider
 } from "@chakra-ui/react"
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown, FiSearch, FiMaximize, FiAlignRight, FiEdit, FiActivity, FiLogOut } from "react-icons/fi"
 import { CgProfile} from "react-icons/cg"
@@ -105,6 +106,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         </VStack>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
+      <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
       {LinkItems.map(link => (
         <NavItem key={link.name} icon={link.icon} to={link.to}>
           {link.name}
@@ -150,6 +152,7 @@ const NavItem = ({ icon, to, children, ...rest }) => {
         )}
         {children}
       </Flex>
+      <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
     </Link>
   )
 }
