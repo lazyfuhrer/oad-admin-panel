@@ -7,7 +7,14 @@ import CompanyInfoCard from '@/components/CompanyInfoCard'
 function Officers() {
   return (
     <>
-      <Stack spacing={'2'}>
+      <Stack spacing={'2'} mb={'2'}>
+        <CompanyInfoCard one={"COMAPNY NAME"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
+        <CompanyInfoCard one={"INCORPORATION DATE"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
+        <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
+        <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
+        <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
+        <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
+        <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
         <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
         <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
         <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
