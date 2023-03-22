@@ -7,11 +7,11 @@ import CompanyInfoCard from '@/components/CompanyInfoCard'
 function Officers() {
   return (
     <>
-      <Box >
+      <Stack spacing={'2'}>
         <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
         <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
         <CompanyInfoCard one={"UEN"} two={"SUPERSTAR UNITED INC."} three={<AiFillEdit />}/>
-      </Box>
+      </Stack>
     </>
   )
 }
