@@ -7,7 +7,7 @@ import CompanyInfoCard from '@/components/CompanyInfoCard'
 function Officers() {
   return (
     <>
-      
+      Officers
     </>
   )
 }

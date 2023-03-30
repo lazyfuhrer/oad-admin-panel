@@ -32,6 +32,7 @@ import {
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown, FiSearch, FiMaximize, FiAlignRight, FiEdit, FiActivity, FiLogOut } from "react-icons/fi"
 import { CgProfile} from "react-icons/cg"
 import NextLink from 'next/link'
+import { useRouter } from "next/router"
 
 const LinkItems = [
     { name: "DASHBOARD", icon: FiHome, to: '/' },
@@ -80,6 +81,8 @@ export default function Layout({ children }) {
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  const router = useRouter();
+  const isActive = (pathname) => router.pathname === pathname;
   return (
     <Box
       transition="3s ease"
@@ -108,7 +111,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
       {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon} to={link.to}>
+        <NavItem key={link.name} icon={link.icon} to={link.to} bg={isActive(link.to) ? 'blue.500' : ''} color={isActive(link.to) ? 'white' : ''}>
           {link.name}
         </NavItem>
       ))}
@@ -132,7 +135,7 @@ const NavItem = ({ icon, to, children, ...rest }) => {
         role="group"
         cursor="pointer"
         _hover={{
-          bg: "cyan.400",
+          bg: "yellow.400",
           color: "white"
         }}
         {...rest}
