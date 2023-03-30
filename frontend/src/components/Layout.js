@@ -31,22 +31,21 @@ import {
 } from "@chakra-ui/react"
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown, FiSearch, FiMaximize, FiAlignRight, FiEdit, FiActivity, FiLogOut } from "react-icons/fi"
 import { CgProfile} from "react-icons/cg"
+import { AiFillCaretDown} from "react-icons/ai"
 import NextLink from 'next/link'
 import { useRouter } from "next/router"
 
 const LinkItems = [
-    { name: "DASHBOARD", icon: FiHome, to: '/' },
-    { name: "COMPANY INFORMATION", icon: FiTrendingUp, to: '/companyinfo' },
-    { name: "OFFICERS", icon: FiCompass, to: '/officers' },
-    { name: "SHARES", icon: FiStar, to: '/shares' },
-    { name: "DOCUMENTS", icon: FiSettings, to: '/documents' },
-    { name: "ACCOUNTING", icon: FiSettings, to: '/accounting' },
-    { name: "BILLING", icon: FiSettings, to: '/billing' },
-    { name: "PARTNERSHIPS", icon: FiSettings, to: '/partnerships' },
-    { name: "CONTACT", icon: FiSettings, to: '/contact' }
+  { name: "DASHBOARD", icon: FiHome, to: '/' },
+  { name: "COMPANY INFORMATION", icon: FiTrendingUp, to: '/companyinfo' },
+  { name: "OFFICERS", icon: FiCompass, to: '/officers' },
+  { name: "SHARES", icon: FiStar, to: '/shares' },
+  { name: "DOCUMENTS", icon: FiSettings, to: '/documents' },
+  { name: "ACCOUNTING", icon: FiSettings, to: '/accounting' },
+  { name: "BILLING", icon: FiSettings, to: '/billing' },
+  { name: "PARTNERSHIPS", icon: FiSettings, to: '/partnerships' },
+  { name: "CONTACT", icon: FiSettings, to: '/contact' }
 ]
-
-
 
 export default function Layout({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -95,7 +94,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex  alignItems="center" mx="8" justifyContent="space-between">
-        <VStack mt={'5'} mb={'7'} spacing="1">
+        <VStack mt={'5'} mb={'3'} spacing="1">
           <HStack >
             <Text fontWeight='bold'>
                 John Smith
@@ -103,9 +102,18 @@ const SidebarContent = ({ onClose, ...rest }) => {
             <FiSettings />
           </HStack>
           <Avatar src='https://bit.ly/sage-adebayo' size="lg" />
-          <Text fontWeight='bold'>
-              Superstar United Inc.
-          </Text>
+          <Flex
+            align="center"
+            fontSize={'14px'}
+            fontWeight={'bold'}
+          >
+            Superstar United Inc
+            <Icon
+              ml='3'
+              fontSize="16"
+              as={AiFillCaretDown}
+            />
+          </Flex>
         </VStack>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
