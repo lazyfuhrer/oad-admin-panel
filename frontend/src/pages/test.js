@@ -1,7 +1,7 @@
 import { Button, Container, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import { MD5 } from 'crypto-js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Test() {
   const [data, setData] = useState([]);
@@ -53,17 +53,25 @@ export default function Test() {
         'https://apps.teamworkcss.com/oakwooduat/api/index/companies',
         config,
       );
-      console.log(response.data.data);
       setData(response.data.data);
-      //console.log(data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (data.length > 0) {
+    console.log(data);
+  }
+
   return (
-    <Container mt={50} maxW="xl" centerContent>
-      <Button colorScheme={'orange'} onClick={fetchData}>Company Lists</Button>
+    <Container maxW="xl">
+      {data.map((company) => (
+        <Text key={company.id}>{company.entity_name}</Text>
+      ))}
     </Container>
   );
 }
