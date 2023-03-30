@@ -111,7 +111,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
       {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon} to={link.to} bg={isActive(link.to) ? 'blue.500' : ''} color={isActive(link.to) ? 'white' : ''}>
+        <NavItem key={link.name} icon={link.icon} to={link.to} bg={isActive(link.to) ? 'rgb(128, 90, 213)' : ''} color={isActive(link.to) ? 'white' : ''}>
           {link.name}
         </NavItem>
       ))}
@@ -130,8 +130,7 @@ const NavItem = ({ icon, to, children, ...rest }) => {
       <Flex
         align="center"
         p="2"
-        mx="4"
-        borderRadius="md"
+        mx="0"
         role="group"
         cursor="pointer"
         _hover={{

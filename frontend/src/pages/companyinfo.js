@@ -71,7 +71,7 @@ function CompanyInfo() {
     <>
       {data[0] && <Stack spacing={'2'} mb={'1'}>
         <CompanyInfoCard one={"UEN"} two={""}/>
-        <CompanyInfoCard one={"COMAPNY NAME"} two={data[0].entity_name} />
+        <CompanyInfoCard one={"COMPANY NAME"} two={data[0].entity_name} />
         <CompanyInfoCard one={"INCORPORATION DATE"} two={data[0].incorporation_date} />
         <CompanyInfoCard one={"COMPANY TYPE"} two={""} />
         <CompanyInfoCard one={"PRINCIPAL ACTIVITY 1"} two={""} />
