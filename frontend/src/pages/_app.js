@@ -4,7 +4,7 @@ import '@/styles/globals.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import { parse } from 'url'
 
-function MyApp({ Component, pageProps, router }) {
+export default function MyApp({ Component, pageProps, router }) {
   const { asPath } = router;
   const { pathname } = parse(asPath, true);
 
@@ -21,5 +21,3 @@ function MyApp({ Component, pageProps, router }) {
     </ChakraProvider>
   );
 }
-
-export default MyApp;
