@@ -1,16 +1,25 @@
+// _app.js
 import Layout from '@/components/Layout'
 import '@/styles/globals.css'
 import { ChakraProvider } from '@chakra-ui/react'
-import Login from './login';
+import { parse } from 'url'
 
-export default function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
+  const { asPath } = router;
+  const { pathname } = parse(asPath, true);
 
-  const isLoggedIn = false;
+  const pagesWithoutLayout = ['/login', '/register'];
+  const hasLayout = !pagesWithoutLayout.includes(pathname);
 
   return (
     <ChakraProvider>
-      {/* <Layout children={<Component {...pageProps} />}/> */}
-      {isLoggedIn ? <Layout children={<Component {...pageProps} />}/> : <Login/>}
+      {hasLayout ? (
+        <Layout children={<Component {...pageProps} />} />
+      ) : (
+        <Component {...pageProps} />
+      )}
     </ChakraProvider>
-  )
+  );
 }
+
+export default MyApp;
