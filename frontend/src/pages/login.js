@@ -10,7 +10,9 @@ import {
     Button,
     Heading,
     useColorModeValue,
+    Text,
   } from '@chakra-ui/react';
+  import NextLink from 'next/link'
   
   export default function Login() {
     return (
@@ -53,6 +55,11 @@ import {
                   }}>
                   Log in
                 </Button>
+              </Stack>
+              <Stack pt={6}>
+                <Text align={'center'}>
+                  Don't have an account? <Link as={NextLink} href='/register' color={'blue.400'}>Register</Link>
+                </Text>
               </Stack>
             </Stack>
           </Box>
