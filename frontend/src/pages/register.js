@@ -17,15 +17,14 @@ import {
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 
 export default function Register() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     email: '',
     username: '',
     password: '',
@@ -38,10 +37,20 @@ export default function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { firstName, lastName, email, username, password } = formData;
-    router.push('/login');
+    // const { firstname, lastname, email, username, password } = formData;
+    
+    const res = await fetch('/api/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+  
+    if (res.ok) router.push('/login');
     
   };
+  
 
   return (
     <Flex
@@ -63,13 +72,13 @@ export default function Register() {
           <Stack spacing={4}>
             <HStack>
               <Box>
-                <FormControl id="firstName" isRequired>
+                <FormControl id="firstname" isRequired>
                   <FormLabel>First Name</FormLabel>
                   <Input type="text" onChange={handleInputChange} />
                 </FormControl>
               </Box>
               <Box>
-                <FormControl id="lastName">
+                <FormControl id="lastname">
                   <FormLabel>Last Name</FormLabel>
                   <Input type="text" onChange={handleInputChange} />
                 </FormControl>
