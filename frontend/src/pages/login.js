@@ -32,8 +32,7 @@ export default function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formValues);
-    const { username, password } = formValues;
+    // const { username, password } = formValues;
     
     const res = await fetch('/api/signin', {
       method: 'POST',
