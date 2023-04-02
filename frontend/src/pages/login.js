@@ -30,12 +30,20 @@ export default function Login() {
     setFormValues((prevValues) => ({ ...prevValues, [name]: newValue }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formValues);
     const { username, password } = formValues;
-    router.push('/');
-    // send the formValues object to the server or do something with it
+    
+    const res = await fetch('/api/signin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formValues),
+    });
+  
+    if (res.ok) router.push('/');
   };
 
   return (
