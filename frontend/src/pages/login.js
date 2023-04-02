@@ -14,8 +14,10 @@ import {
   Text,
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Login() {
+  const router = useRouter()
   const [formValues, setFormValues] = useState({
     username: '',
     password: '',
@@ -31,6 +33,8 @@ export default function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formValues);
+    const { username, password } = formValues;
+    router.push('/');
     // send the formValues object to the server or do something with it
   };
 

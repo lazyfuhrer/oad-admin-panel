@@ -1,3 +1,4 @@
+import { hash } from 'bcryptjs';
 import connectToDatabase from '../../../database/conn';
 import Users from '../../../model/Schema';
 
@@ -18,8 +19,8 @@ export default async function handler(req, res) {
       } else {
         return res.status(422).json({ error: 'Email already exists' });
       }
-    }
-    const user = new Users({ firstname, lastname, email, username, password });
+    };
+    const user = new Users({ firstname, lastname, email, username, password: await hash(password, 12) });
     const userRegistered = await user.save();
     if (userRegistered) {
         res.status(201).json({ message: 'User registered successfully' });

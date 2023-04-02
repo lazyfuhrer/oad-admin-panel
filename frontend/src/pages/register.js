@@ -17,8 +17,11 @@ import {
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function Register() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -33,9 +36,11 @@ export default function Register() {
     setFormData((formData) => ({ ...formData, [id]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    const { firstName, lastName, email, username, password } = formData;
+    router.push('/login');
+    
   };
 
   return (

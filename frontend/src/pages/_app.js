@@ -1,4 +1,3 @@
-// _app.js
 import Layout from '@/components/Layout'
 import '@/styles/globals.css'
 import { ChakraProvider } from '@chakra-ui/react'
@@ -12,12 +11,14 @@ export default function MyApp({ Component, pageProps, router }) {
   const hasLayout = !pagesWithoutLayout.includes(pathname);
 
   return (
-    <ChakraProvider>
-      {hasLayout ? (
-        <Layout children={<Component {...pageProps} />} />
-      ) : (
-        <Component {...pageProps} />
-      )}
-    </ChakraProvider>
+    
+      <ChakraProvider>
+        {hasLayout ? (
+          <Layout children={<Component {...pageProps} />} />
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </ChakraProvider>
+    
   );
 }
