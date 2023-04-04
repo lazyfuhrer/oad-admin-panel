@@ -1,4 +1,3 @@
-import { hash } from 'bcryptjs';
 import connectToDatabase from '../../../database/conn';
 import Users from '../../../model/Schema';
 
