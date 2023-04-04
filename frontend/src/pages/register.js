@@ -13,6 +13,7 @@ import {
   Text,
   useColorModeValue,
   Link,
+  Select,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
@@ -28,6 +29,7 @@ export default function Register() {
     email: '',
     username: '',
     password: '',
+    role: 'user',
   });
 
   const handleInputChange = (event) => {
@@ -45,9 +47,10 @@ export default function Register() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formData),
-    });
+     });
   
     if (res.ok) router.push('/login');
+    console.log(formData)
     
   };
   
@@ -91,6 +94,14 @@ export default function Register() {
             <FormControl id="username" isRequired>
               <FormLabel>Username</FormLabel>
               <Input type="username" onChange={handleInputChange} />
+            </FormControl>
+            <FormControl id="role" isRequired>
+              <FormLabel>Role</FormLabel>
+              <Select value={formData.role} onChange={handleInputChange}>
+                <option value="user">User</option>
+                <option value="officer">Officer</option>
+                <option value="admin">Admin</option>
+              </Select>
             </FormControl>
             <FormControl id="password" isRequired>
               <FormLabel>Password</FormLabel>
