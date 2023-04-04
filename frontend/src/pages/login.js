@@ -43,10 +43,13 @@ export default function Login() {
     });
   
     const data = await res.json();
+    //console.log(data)
 
     if (res.ok) {
       localStorage.setItem('token', data.token);
-      console.log(data.token);
+      localStorage.setItem('rights', data.permissions.permissions);
+      localStorage.setItem('role', data.permissions.role);
+      //console.log(data.token);
       router.push('/');
     }
   };

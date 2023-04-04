@@ -254,7 +254,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <MenuItem icon={<FiActivity/>}>Activity</MenuItem>
                 <MenuDivider />
                 <MenuItem onClick={()=>{
-                    localStorage.removeItem('token');
+                    localStorage.clear()
                     router.push('/login');
                   }} icon={<FiLogOut/>}>Sign out</MenuItem>
               </MenuList>
