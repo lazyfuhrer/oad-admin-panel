@@ -168,6 +168,7 @@ const NavItem = ({ icon, to, children, ...rest }) => {
 }
 
 const MobileNav = ({ onOpen, ...rest }) => {
+    const router = useRouter();
     const firstField = useRef()
     const { isOpen, onClose } = useDisclosure()
     return (
@@ -252,7 +253,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
                 <MenuItem icon={<FiSettings/>}>Support</MenuItem>
                 <MenuItem icon={<FiActivity/>}>Activity</MenuItem>
                 <MenuDivider />
-                <MenuItem icon={<FiLogOut/>}>Sign out</MenuItem>
+                <MenuItem onClick={()=>{
+                    localStorage.removeItem('token');
+                    router.push('/login');
+                  }} icon={<FiLogOut/>}>Sign out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>

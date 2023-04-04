@@ -42,7 +42,13 @@ export default function Login() {
       body: JSON.stringify(formValues),
     });
   
-    if (res.ok) router.push('/');
+    const data = await res.json();
+
+    if (res.ok) {
+      localStorage.setItem('token', data.token);
+      console.log(data.token);
+      router.push('/');
+    }
   };
 
   return (

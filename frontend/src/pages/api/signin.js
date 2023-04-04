@@ -1,6 +1,6 @@
-import { compare } from 'bcryptjs';
 import connectToDatabase from '../../../database/conn';
 import Users from '../../../model/Schema';
+import { sign } from 'jsonwebtoken';
 
 export default async function handler(req, res) {
 
@@ -17,17 +17,18 @@ export default async function handler(req, res) {
         const userLogin = await Users.findOne({ username: username });
 
         if (userLogin) {
-            const isMatch = password === userLogin.password;
+            const isMatch = password == userLogin.password;
 
             if (!isMatch) {
-                res.status(422).json({ error: 'User does not exist pass' });
+                res.status(422).json({ error: 'Invalid username or password' });
             }
             else {
-                res.json({message: 'User logged in successfully'});
+                const token = sign({ username: userLogin.username },'secret');
+                res.json({message: 'User logged in successfully', token: token});
             }
         }
         else {
-            res.status(422).json({ error: 'User does not exist' });
+            res.status(422).json({ error: 'Invalid username or password' });
         }
         
     } catch(error){
