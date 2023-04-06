@@ -38,9 +38,9 @@ import { useRouter } from "next/router"
 const LinkItems = [
   { name: "DASHBOARD", icon: FiHome, to: '/' },
   { name: "COMPANY INFORMATION", icon: FiTrendingUp, to: '/companyinfo' },
-  { name: "OFFICERS", icon: FiCompass, to: '/officers' },
-  { name: "SHARES", icon: FiStar, to: '/shares' },
-  { name: "DOCUMENTS", icon: FiSettings, to: '/documents' },
+  { name: "USERS", icon: FiCompass, to: '/officers' },
+  { name: "VIEW USERS", icon: FiStar, to: '/shares' },
+  { name: "EDIT USERS", icon: FiSettings, to: '/documents' },
   { name: "ACCOUNTING", icon: FiSettings, to: '/accounting' },
   { name: "BILLING", icon: FiSettings, to: '/billing' },
   { name: "PARTNERSHIPS", icon: FiSettings, to: '/partnerships' },

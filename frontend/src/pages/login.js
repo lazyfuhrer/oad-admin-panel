@@ -43,13 +43,12 @@ export default function Login() {
     });
   
     const data = await res.json();
-    //console.log(data)
+    console.log(data)
 
     if (res.ok) {
       localStorage.setItem('token', data.token);
       localStorage.setItem('rights', data.permissions.permissions);
       localStorage.setItem('role', data.permissions.role);
-      //console.log(data.token);
       router.push('/');
     }
   };
@@ -111,14 +110,6 @@ export default function Login() {
                   }}>
                   Log in
                 </Button>
-              </Stack>
-              <Stack pt={6}>
-                <Text align={'center'}>
-                  Don't have an account?{' '}
-                  <Link as={NextLink} href="/register" color={'blue.400'}>
-                    Register
-                  </Link>
-                </Text>
               </Stack>
             </Stack>
           </form>

@@ -8,11 +8,11 @@ export default async function handler(req, res) {
   }
 
   await connectToDatabase();
-  const { firstname, lastname, email, username, password, role } = req.body;
+  const { firstname, lastname, email, username, password, cpassword , role, status } = req.body;
 
   // console.log(role)
 
-  if (!firstname || !lastname || !email || !username || !password|| !role) {
+  if (!firstname || !lastname || !email || !username || !password|| !cpassword|| !role || !status) {
     res.status(422).json({ error: 'All fields are required' });
   }
 
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
         return res.status(422).json({ error: 'Email already exists' });
       }
     };
-    const user = new Users({ firstname, lastname, email, username, password, role });
+    const user = new Users({ firstname, lastname, email, username, password, cpassword, role, status });
     const userRegistered = await user.save();
     if (userRegistered) {
         res.status(201).json({ message: 'User registered successfully' });
