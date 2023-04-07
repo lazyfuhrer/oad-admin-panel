@@ -17,7 +17,7 @@ export default function Shares() {
   useEffect(() => {
     async function getUserData() {
       const response = await axios.get('/api/getuser');
-      console.log(response.data.allUsers)
+      //console.log(response.data.allUsers)
       setUser(response.data.allUsers);
     }
     getUserData();

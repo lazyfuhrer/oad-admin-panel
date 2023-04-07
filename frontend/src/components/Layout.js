@@ -38,7 +38,7 @@ import { useRouter } from "next/router"
 const LinkItems = [
   { name: "DASHBOARD", icon: FiHome, to: '/' },
   { name: "COMPANY INFORMATION", icon: FiTrendingUp, to: '/companyinfo' },
-  { name: "USERS", icon: FiCompass, to: '/officers' },
+  { name: "CREATE USERS", icon: FiCompass, to: '/officers' },
   { name: "VIEW USERS", icon: FiStar, to: '/shares' },
   { name: "EDIT USERS", icon: FiSettings, to: '/documents' },
   { name: "ACCOUNTING", icon: FiSettings, to: '/accounting' },
@@ -118,11 +118,22 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
-      {LinkItems.map(link => (
-        <NavItem key={link.name} icon={link.icon} to={link.to} bg={isActive(link.to) ? 'rgb(128, 90, 213)' : ''} color={isActive(link.to) ? 'white' : ''}>
-          {link.name}
-        </NavItem>
-      ))}
+      {LinkItems.map(link => {
+        if (link.name === 'CREATE USERS' && localStorage.getItem('role') != 'admin') {
+          return null;
+        }
+        return (
+          <NavItem
+            key={link.name}
+            icon={link.icon}
+            to={link.to}
+            bg={isActive(link.to) ? 'rgb(128, 90, 213)' : ''}
+            color={isActive(link.to) ? 'white' : ''}
+          >
+            {link.name}
+          </NavItem>
+        );
+      })}
     </Box>
   )
 }
