@@ -38,9 +38,11 @@ import { useRouter } from "next/router"
 const LinkItems = [
   { name: "DASHBOARD", icon: FiHome, to: '/' },
   { name: "COMPANY INFORMATION", icon: FiTrendingUp, to: '/companyinfo' },
-  { name: "CREATE USERS", icon: FiCompass, to: '/officers' },
-  { name: "VIEW USERS", icon: FiStar, to: '/shares' },
-  { name: "EDIT USERS", icon: FiSettings, to: '/documents' },
+  { name: "CREATE USERS", icon: FiTrendingUp, to: '/createusers' },
+  { name: "VIEW USERS", icon: FiTrendingUp, to: '/viewusers' },
+  { name: "OFFICERS", icon: FiSettings, to: '/officers' },
+  { name: "SHARES", icon: FiSettings, to: '/shares' },
+  { name: "DOCUMENTS", icon: FiSettings, to: '/documents' },
   { name: "ACCOUNTING", icon: FiSettings, to: '/accounting' },
   { name: "BILLING", icon: FiSettings, to: '/billing' },
   { name: "PARTNERSHIPS", icon: FiSettings, to: '/partnerships' },
@@ -49,7 +51,6 @@ const LinkItems = [
 
 export default function Layout({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  //const { toggleFullscreen } = useFullscreen();
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
