@@ -31,6 +31,7 @@ export default function ViewUsers() {
               <Text fontWeight="bold">USERNAME: {user.username}</Text>
               <Text fontWeight="bold">NAME: {`${user.firstname} ${user.lastname}`}</Text>
               <Text fontWeight="bold">EMAIL: {user.email}</Text>
+              <Text fontWeight="bold">ROLE: {user.role}</Text>
             </Stack>
             <Button colorScheme='green' onClick={()=> router.push(`/editusers?username=${user.username}`)}>Edit</Button>
             <Button colorScheme='red' onClick={deleteUser(user)}>Delete</Button>
