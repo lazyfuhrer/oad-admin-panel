@@ -4,7 +4,7 @@ import React from 'react'
 export default function Officers() {
   return (
     <>
-      <Text>Offciers</Text>
+      <Text>Officers</Text>
     </>
   )
 }
