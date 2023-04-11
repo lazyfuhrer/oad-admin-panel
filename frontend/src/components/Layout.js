@@ -123,6 +123,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
         if (link.name === 'CREATE USERS' && localStorage.getItem('role') != 'admin') {
           return null;
         }
+        if (link.name === 'VIEW USERS' && localStorage.getItem('role') == 'customer') {
+          return null;
+        }
         return (
           <NavItem
             key={link.name}

@@ -25,18 +25,24 @@ export default function ViewUsers() {
 
   return (
     user.filter(user => user.role !== "admin").map((user) => (
-        <Card key={user.username} mb={'10'} p={'5'}>
-          <Stack direction="row" alignItems="center">
-            <Stack>
-              <Text fontWeight="bold">USERNAME: {user.username}</Text>
-              <Text fontWeight="bold">NAME: {`${user.firstname} ${user.lastname}`}</Text>
-              <Text fontWeight="bold">EMAIL: {user.email}</Text>
-              <Text fontWeight="bold">ROLE: {user.role}</Text>
-            </Stack>
-            <Button colorScheme='green' onClick={()=> router.push(`/editusers?username=${user.username}`)}>Edit</Button>
-            <Button colorScheme='red' onClick={deleteUser(user)}>Delete</Button>
+      <Card key={user.username} mb={'10'} p={'5'}>
+        <Stack direction="row" alignItems="center">
+          <Stack>
+            <Text fontWeight="bold">USERNAME: {user.username}</Text>
+            <Text fontWeight="bold">NAME: {`${user.firstname} ${user.lastname}`}</Text>
+            <Text fontWeight="bold">EMAIL: {user.email}</Text>
+            <Text fontWeight="bold">ROLE: {user.role}</Text>
           </Stack>
-        </Card>
+          {
+            localStorage.getItem('role') != 'executive' && (
+              <>
+                <Button colorScheme='green' onClick={() => router.push(`/editusers?username=${user.username}`)}>Edit</Button>
+                <Button colorScheme='red' onClick={() => deleteUser(user)}>Delete</Button>
+              </>
+            )
+          }
+        </Stack>
+      </Card>
     ))
   );  
 };
