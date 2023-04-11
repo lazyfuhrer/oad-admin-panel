@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Flex,
   Box,
@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { UserContext } from '@/context/UserContext';
 
 export default function Login() {
   const router = useRouter()
@@ -23,6 +24,7 @@ export default function Login() {
     password: '',
     rememberMe: false,
   });
+  const { setUserData } = useContext(UserContext);
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -43,12 +45,10 @@ export default function Login() {
     });
   
     const data = await res.json();
-    console.log(data)
+    //console.log(data)
 
     if (res.ok) {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('rights', data.permissions.permissions);
-      localStorage.setItem('role', data.permissions.role);
+      setUserData(data);
       router.push('/');
     }
   };

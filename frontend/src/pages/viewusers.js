@@ -1,9 +1,11 @@
+import { UserContext } from '@/context/UserContext';
 import { Avatar, Button, Card, HStack, IconButton, Stack, Tag, Text, VStack } from '@chakra-ui/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 export default function ViewUsers() {
+  const { role } = useContext(UserContext);
   const router = useRouter();
   const [user, setUser] = useState([]);
   const deleteUser = (user) => async () => {
@@ -34,7 +36,7 @@ export default function ViewUsers() {
             <Text fontWeight="bold">ROLE: {user.role}</Text>
           </Stack>
           {
-            localStorage.getItem('role') != 'executive' && (
+            role != 'executive' && (
               <>
                 <Button colorScheme='green' onClick={() => router.push(`/editusers?username=${user.username}`)}>Edit</Button>
                 <Button colorScheme='red' onClick={() => deleteUser(user)}>Delete</Button>

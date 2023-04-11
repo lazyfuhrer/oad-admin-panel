@@ -27,7 +27,7 @@ export default async function handler(req, res) {
             }
             else {
                 const token = sign({ username: userLogin.username },'secret');
-                res.json({message: 'User logged in successfully', token: token, permissions: permissions });
+                res.json({message: 'User logged in successfully', token: token, permissions: permissions, user: userLogin });
             }
         }
         else {

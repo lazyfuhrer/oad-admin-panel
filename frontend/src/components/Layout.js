@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useContext, useEffect, useRef } from "react"
 import {
   IconButton,
   Avatar,
@@ -34,6 +34,7 @@ import { CgProfile} from "react-icons/cg"
 import { AiFillCaretDown} from "react-icons/ai"
 import NextLink from 'next/link'
 import { useRouter } from "next/router"
+import { UserContext } from "@/context/UserContext"
 
 const LinkItems = [
   { name: "DASHBOARD", icon: FiHome, to: '/' },
@@ -81,6 +82,7 @@ export default function Layout({ children }) {
 }
 
 const SidebarContent = ({ onClose, ...rest }) => {
+  const { firstname, lastname, role } = useContext(UserContext);
   const router = useRouter();
   const isActive = (pathname) => router.pathname === pathname;
   return (
@@ -98,7 +100,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         <VStack mt={'5'} mb={'3'} spacing="1">
           <HStack >
             <Text fontWeight='bold'>
-                John Smith
+              {firstname} {lastname}
             </Text>
             <FiSettings />
           </HStack>
@@ -120,10 +122,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
       {LinkItems.map(link => {
-        if (link.name === 'CREATE USERS' && localStorage.getItem('role') != 'admin') {
+        if (link.name === 'CREATE USERS' && role != 'admin') {
           return null;
         }
-        if (link.name === 'VIEW USERS' && localStorage.getItem('role') == 'customer') {
+        if (link.name === 'VIEW USERS' && role == 'customer') {
           return null;
         }
         return (
@@ -183,6 +185,7 @@ const NavItem = ({ icon, to, children, ...rest }) => {
 }
 
 const MobileNav = ({ onOpen, ...rest }) => {
+    const { firstname, lastname } = useContext(UserContext);
     const router = useRouter();
     const firstField = useRef()
     const { isOpen, onClose } = useDisclosure()
@@ -248,7 +251,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                     spacing="1px"
                     ml="2"
                   >
-                    <Text fontSize="sm">Sonia Taylor</Text>
+                    <Text fontSize="sm">{firstname} {lastname}</Text>
                     <Text fontSize="xs" color="gray.600">
                       Web Designer
                     </Text>
