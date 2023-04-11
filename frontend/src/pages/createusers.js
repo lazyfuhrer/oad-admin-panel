@@ -29,7 +29,7 @@ import {
       username: '',
       password: '',
       cpassword: '',
-      role: 'user',
+      role: 'customer',
       status : 'active'
     });
   
@@ -104,10 +104,10 @@ import {
               <FormControl id="role" isRequired>
                 <FormLabel>Role</FormLabel>
                 <Select value={formData.role} onChange={handleInputChange}>
-                  <option value="user">User</option>
+                  <option value="customer">Customer</option>
                   <option value="admin">Admin</option>
-                  <option value="buyer">Buyer</option>
-                  <option value="seller">Seller</option>
+                  <option value="manager">Manager</option>
+                  <option value="executive">Executive</option>
                 </Select>
               </FormControl>
               <FormControl id="password" isRequired>
