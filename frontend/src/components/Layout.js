@@ -185,7 +185,7 @@ const NavItem = ({ icon, to, children, ...rest }) => {
 }
 
 const MobileNav = ({ onOpen, ...rest }) => {
-    const { firstname, lastname } = useContext(UserContext);
+    const { firstname, lastname, role } = useContext(UserContext);
     const router = useRouter();
     const firstField = useRef()
     const { isOpen, onClose } = useDisclosure()
@@ -253,7 +253,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   >
                     <Text fontSize="sm">{firstname} {lastname}</Text>
                     <Text fontSize="xs" color="gray.600">
-                      Web Designer
+                      {role}
                     </Text>
                   </VStack>
                   <Box display={{ base: "none", md: "flex" }}>
