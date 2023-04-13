@@ -1,10 +1,10 @@
 import CompanyInfoCard from '@/components/CompanyInfoCard'
-import { Stack } from '@chakra-ui/react'
+import { Box, Stack } from '@chakra-ui/react'
 import axios from 'axios';
 import { MD5 } from 'crypto-js';
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
-function CompanyInfo() {
+export default function CompanyInfo() {
   const [data, setData] = useState([]);
 
   const generateDigestHash = (
@@ -48,41 +48,48 @@ function CompanyInfo() {
     },
   };
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        'https://apps.teamworkcss.com/oakwooduat/api/index/companies',
-        config,
-      );
-      setData(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          'https://apps.teamworkcss.com/oakwooduat/api/index/companies',
+          config,
+        );
+        setData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
     fetchData();
   }, []);
+  
+  /*useEffect(() => {
+    if (data.length > 0) {
+      console.log(data);
+    }
+  }, [data]);*/
 
-  if (data.length > 0) {
-    console.log(data[0]);
-  }
   return (
     <>
-      {data[0] && <Stack spacing={'2'} mb={'1'}>
-        <CompanyInfoCard one={"UEN"} two={""}/>
-        <CompanyInfoCard one={"COMPANY NAME"} two={data[0].entity_name} />
-        <CompanyInfoCard one={"INCORPORATION DATE"} two={data[0].incorporation_date} />
-        <CompanyInfoCard one={"COMPANY TYPE"} two={""} />
-        <CompanyInfoCard one={"PRINCIPAL ACTIVITY 1"} two={""} />
-        <CompanyInfoCard one={"PRINCIPAL ACTIVITY 2"} two={""} />
-        <CompanyInfoCard one={"REGISTERED OFFICE ADDRESS"} two={data[0].registred_office_address} />
-        <CompanyInfoCard one={"FINANCIAL YEAR END"} two={""} />
-        <CompanyInfoCard one={"DATE OF LAST AGM"} two={""} />
-        <CompanyInfoCard one={"WEBSITE"} two={""} />
-      </Stack>}
+      {data.length > 0 && (
+        <Stack spacing={'2'} mb={'1'}>
+          {data.map((item, index) => (
+            <Box key={index} mb={'5'} border={'1px'}>
+              <CompanyInfoCard one={"UEN"} two={""} />
+              <CompanyInfoCard one={"COMPANY NAME"} two={item.entity_name} />
+              <CompanyInfoCard one={"INCORPORATION DATE"} two={item.incorporation_date} />
+              <CompanyInfoCard one={"COMPANY TYPE"} two={""} />
+              <CompanyInfoCard one={"PRINCIPAL ACTIVITY 1"} two={""} />
+              <CompanyInfoCard one={"PRINCIPAL ACTIVITY 2"} two={""} />
+              <CompanyInfoCard one={"REGISTERED OFFICE ADDRESS"} two={item.registred_office_address} />
+              <CompanyInfoCard one={"FINANCIAL YEAR END"} two={""} />
+              <CompanyInfoCard one={"DATE OF LAST AGM"} two={""} />
+              <CompanyInfoCard one={"WEBSITE"} two={""} />
+            </Box>
+          ))}
+        </Stack>
+      )}
     </>
-  )
+  );
 }
-
-export default CompanyInfo
