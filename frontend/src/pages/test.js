@@ -63,14 +63,11 @@ export default function Test() {
     fetchData();
   }, []);
 
-  // if (data.length > 0) {
-  //   console.log(data[0].entity_name);
-  // }
-
   return (
     <Container maxW="xl">
-      {data[0] && <Text>{data[0].entity_name}</Text>}
+      {data.map((entity, index) => (
+        <Text key={index}>{entity.entity_name}</Text>
+      ))}
     </Container>
   );
-  
 }
