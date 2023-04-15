@@ -125,9 +125,16 @@ const SidebarContent = ({ onClose, ...rest }) => {
         if (link.name === 'CREATE USERS' && role != 'admin') {
           return null;
         }
-        if (link.name === 'VIEW USERS' && role == 'customer') {
+        if (link.name === 'VIEW USERS' && role == 'customerAdmin') {
           return null;
         }
+        if ((link.name === 'VIEW USERS' || link.name === 'BILLING' || link.name === 'ACCOUNTING') && role == 'customerOfficer') {
+          return null;
+        }
+        if ((link.name === 'VIEW USERS' || link.name === 'BILLING' || link.name === 'OFFICERS' || link.name === 'SHARES' || link.name === 'DOCUMENTS' || link.name === 'PARTNERSHIPS' || link.name === 'CONTACT') && role == 'customerFinance') {
+          return null;
+        }
+
         return (
           <NavItem
             key={link.name}

@@ -10,14 +10,11 @@ import {
     Stack,
     Button,
     Heading,
-    Text,
     useColorModeValue,
-    Link,
     Select,
   } from '@chakra-ui/react';
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-  import NextLink from 'next/link';
   
   export default function CreateUsers() {
     const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +26,7 @@ import {
       username: '',
       password: '',
       cpassword: '',
-      role: 'customer',
+      role: 'customerAdmin',
       status : 'active'
     });
   
@@ -40,8 +37,6 @@ import {
   
     const handleSubmit = async (event) => {
       event.preventDefault();
-      // const { firstname, lastname, email, username, password } = formData;
-      
       const res = await fetch('/api/signup', {
         method: 'POST',
         headers: {
@@ -52,7 +47,6 @@ import {
   
       if (res.ok) console.log(formData);
     };
-    
   
     return (
       <Flex
@@ -104,7 +98,9 @@ import {
               <FormControl id="role" isRequired>
                 <FormLabel>Role</FormLabel>
                 <Select value={formData.role} onChange={handleInputChange}>
-                  <option value="customer">Customer</option>
+                  <option value="customerAdmin">Customer - Admin</option>
+                  <option value="customerOfficer">Customer - Officer</option>
+                  <option value="customerFinance">Customer - Finance</option>
                   <option value="admin">Admin</option>
                   <option value="manager">Manager</option>
                   <option value="executive">Executive</option>
