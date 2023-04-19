@@ -4,7 +4,7 @@ import { FaBell } from 'react-icons/fa';
 
 const ProfileCard = ({ name }) => {
   return (
-    <Card maxW={'5xl'} borderRadius={'md'}>
+    <Card maxW={'5xl'} borderRadius={'md'} mb={'1'}>
         <Stack direction={'row'} align="center" p={3}>
             <HStack w={'lg'} spacing="10" ml={10}>
                 <Avatar size="md" name="John Doe" src='https://bit.ly/sage-adebayo' />
