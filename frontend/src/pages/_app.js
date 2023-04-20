@@ -11,15 +11,16 @@ export default function MyApp({ Component, pageProps, router }) {
   const pagesWithoutLayout = ['/login', '/register'];
   const hasLayout = !pagesWithoutLayout.includes(pathname);
 
+
   return (
-      <ChakraProvider>
-        <UserProvider>
-          {hasLayout ? (
-            <Layout children={<Component {...pageProps} />} />
-          ) : (
-            <Component {...pageProps} />
-          )}
-        </UserProvider>  
-      </ChakraProvider>
+    <ChakraProvider>
+      <UserProvider>
+        {hasLayout ? (
+          <Layout children={<Component {...pageProps} />} />
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </UserProvider>  
+    </ChakraProvider>
   );
 }

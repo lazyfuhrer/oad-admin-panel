@@ -23,7 +23,8 @@ import {
   InputRightElement,
   Input,
   Divider,
-  Select
+  Select,
+  useColorMode
 } from "@chakra-ui/react"
 import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown, FiSearch, FiMaximize, FiAlignRight, FiEdit, FiActivity, FiLogOut } from "react-icons/fi"
 import { CgProfile} from "react-icons/cg"
@@ -32,6 +33,7 @@ import { useRouter } from "next/router"
 import { UserContext } from "@/context/UserContext"
 import { MD5 } from "crypto-js"
 import axios from "axios"
+import { FaMoon, FaSun } from "react-icons/fa"
 
 
 const LinkItems = [
@@ -251,6 +253,8 @@ const NavItem = ({ icon, to, children, ...rest }) => {
 }
 
 const MobileNav = ({ onOpen, ...rest }) => {
+    const [colorMode, setColorMode] = useState('light');
+    const { toggleColorMode } = useColorMode();
     const { firstname, lastname, role } = useContext(UserContext);
     const router = useRouter();
     const firstField = useRef()
@@ -296,6 +300,17 @@ const MobileNav = ({ onOpen, ...rest }) => {
             variant="ghost"
             aria-label="open menu"
             icon={<FiBell />}
+          />
+          <IconButton
+            aria-label="Toggle color mode"
+            icon={colorMode === 'light' ? <FaMoon /> : <FaSun />}
+            onClick={() => {
+              setColorMode(colorMode === 'light' ? 'dark' : 'light');
+              toggleColorMode();
+            }}
+            position="fixed"
+            bottom={4}
+            right={4}
           />
           <Flex alignItems={"center"}>
             <Menu>

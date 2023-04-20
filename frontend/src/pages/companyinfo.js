@@ -75,17 +75,17 @@ export default function CompanyInfo() {
       {data.length > 0 && (
         <Stack spacing={'2'} mb={'1'}>
           {data.map((item, index) => (
-            <Box key={index} mb={'5'} border={'1px'}>
-              <CompanyInfoCard one={"UEN"} two={""} />
-              <CompanyInfoCard one={"COMPANY NAME"} two={item.entity_name} />
-              <CompanyInfoCard one={"INCORPORATION DATE"} two={item.incorporation_date} />
-              <CompanyInfoCard one={"COMPANY TYPE"} two={""} />
-              <CompanyInfoCard one={"PRINCIPAL ACTIVITY 1"} two={""} />
-              <CompanyInfoCard one={"PRINCIPAL ACTIVITY 2"} two={""} />
-              <CompanyInfoCard one={"REGISTERED OFFICE ADDRESS"} two={item.registred_office_address} />
-              <CompanyInfoCard one={"FINANCIAL YEAR END"} two={""} />
-              <CompanyInfoCard one={"DATE OF LAST AGM"} two={""} />
-              <CompanyInfoCard one={"WEBSITE"} two={""} />
+            <Box key={index} mb={'5'} borderBottom={'1px'}>
+              <CompanyInfoCard field={"UEN"} value={""} />
+              <CompanyInfoCard field={"COMPANY NAME"} value={item.entity_name} />
+              <CompanyInfoCard field={"INCORPORATION DATE"} value={item.incorporation_date} />
+              <CompanyInfoCard field={"COMPANY TYPE"} value={""} />
+              <CompanyInfoCard field={"PRINCIPAL ACTIVITY 1"} value={""} />
+              <CompanyInfoCard field={"PRINCIPAL ACTIVITY 2"} value={""} />
+              <CompanyInfoCard field={"REGISTERED OFFICE ADDRESS"} value={item.registred_office_address} />
+              <CompanyInfoCard field={"FINANCIAL YEAR END"} value={""} />
+              <CompanyInfoCard field={"DATE OF LAST AGM"} value={""} />
+              <CompanyInfoCard field={"WEBSITE"} value={""} />
             </Box>
           ))}
         </Stack>
