@@ -3,7 +3,7 @@ import { Heading, Avatar, Box, Center, Text, Stack, useColorModeValue, CheckboxG
 export default function OfficerProfileCard() {
     return (
       <Center>
-        <Box maxW={'320px'} w={'full'} bg={useColorModeValue('white', 'gray.900')} p={6} textAlign={'center'}>
+        <Box maxW={'320px'} w={'full'} bg={'#D3D3D3'} p={6} textAlign={'center'}>
           <Avatar src={'https://bit.ly/sage-adebayo'} size={'xl'} alt={'Avatar Alt'} pos={'relative'}/>
           <Text fontWeight={700} fontSize={'14px'} color={'gray.500'} mb={4}>
             Edit Avatar

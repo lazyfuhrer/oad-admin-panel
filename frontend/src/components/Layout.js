@@ -74,7 +74,7 @@ export default function Layout({ children }) {
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
+      <Box ml={{ base: 0, md: 60 }} p="4" bg={'#D3D3D3'}>
         {children}
       </Box>
     </Box>
@@ -265,7 +265,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         px={{ base: 4, md: 4 }}
         height="20"
         alignItems="center"
-        bg={useColorModeValue("white", "gray.900")}
+        bg={'#D3D3D3'}
         borderBottomWidth="1px"
         borderBottomColor={useColorModeValue("gray.200", "gray.700")}
         justifyContent={{ base: "space-between", md: "flex-end" }}
@@ -282,7 +282,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
   
         <HStack spacing={{ base: "0", md: "1" }}>
           <InputGroup w={{base: 'xs', md: 'xl', lg: '2xl'}}>
-            <Input  variant='filled' type='tel' placeholder='Seacrh Company, Officers, Documents and Knowledge Base' _placeholder={{ fontStyle: 'italic' }} />
+            <Input bg={'#BDBDBD'} variant='filled' type='tel' placeholder='Seacrh Company, Officers, Documents and Knowledge Base' _placeholder={{ fontStyle: 'italic', fontWeight: '500' }} />
             <InputRightElement
               pointerEvents='none'
               children={<FiSearch color='gray.300' />}
