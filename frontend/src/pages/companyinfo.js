@@ -57,7 +57,7 @@ export default function CompanyInfo() {
           'https://apps.teamworkcss.com/oakwooduat/api/index/companies',
           config,
         );
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setData(response.data.data);
       } catch (error) {
         console.log(error);
@@ -73,19 +73,26 @@ export default function CompanyInfo() {
     }
   }, [data]);*/
 
-  const selectedIndex = router.query.id;
+  const companyId = router.query.id;
+  console.log(companyId)
+  useEffect(() => {
+    if (typeof id === 'undefined') {
+      router.replace('/companyinfo?id=0');
+    }
+  }, []);
+
   return (
     <>
       {data.length > 0 && (
         <Stack spacing={'2'} mb={'1'}>
-            <Box mb={'5'} borderBottom={'1px'}>
+            <Box mb={'5'} >
               <CompanyInfoCard field={"UEN"} value={""} />
-              <CompanyInfoCard field={"COMPANY NAME"} value={data[selectedIndex].entity_name} />
-              <CompanyInfoCard field={"INCORPORATION DATE"} value={data[selectedIndex].incorporation_date} />
+              <CompanyInfoCard field={"COMPANY NAME"} value={data[companyId].entity_name} />
+              <CompanyInfoCard field={"INCORPORATION DATE"} value={data[companyId].incorporation_date} />
               <CompanyInfoCard field={"COMPANY TYPE"} value={""} />
               <CompanyInfoCard field={"PRINCIPAL ACTIVITY 1"} value={""} />
               <CompanyInfoCard field={"PRINCIPAL ACTIVITY 2"} value={""} />
-              <CompanyInfoCard field={"REGISTERED OFFICE ADDRESS"} value={data[selectedIndex].registred_office_address} />
+              <CompanyInfoCard field={"REGISTERED OFFICE ADDRESS"} value={data[companyId].registred_office_address} />
               <CompanyInfoCard field={"FINANCIAL YEAR END"} value={""} />
               <CompanyInfoCard field={"DATE OF LAST AGM"} value={""} />
               <CompanyInfoCard field={"WEBSITE"} value={""} />

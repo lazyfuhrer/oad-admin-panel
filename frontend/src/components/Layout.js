@@ -148,7 +148,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
   function handleCompanySelect(event) {
     const selectedIndex = event.target.selectedIndex;
-    router.push(`/companyinfo?id=${selectedIndex}`);
+    router.push({ query: { id: selectedIndex } });
   }
 
   return (
