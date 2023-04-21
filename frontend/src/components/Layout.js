@@ -145,6 +145,12 @@ const SidebarContent = ({ onClose, ...rest }) => {
   const { firstname, lastname, role } = useContext(UserContext);
   const router = useRouter();
   const isActive = (pathname) => router.pathname === pathname;
+
+  function handleCompanySelect(event) {
+    const selectedIndex = event.target.selectedIndex;
+    router.push(`/companyinfo?id=${selectedIndex}`);
+  }
+
   return (
     <Box
       transition="3s ease"
@@ -170,9 +176,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
             fontSize={'14px'}
             fontWeight={'bold'}
           >
-            <Select width="200px" defaultValue={data.length > 0 ? data[0].entity_name : ''}>
+            <Select width="200px" defaultValue={data.length > 0 ? data[0].entity_name : ''} onChange={handleCompanySelect}>
               {data.map((company, index) => (
-                <option key={index} value={company.entity_name}>
+                <option key={index} value={index}>
                   {company.entity_name}
                 </option>
               ))}
@@ -302,6 +308,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
             icon={<FiBell />}
           />
           <IconButton
+          zIndex={'999'}
             aria-label="Toggle color mode"
             icon={colorMode === 'light' ? <FaMoon /> : <FaSun />}
             onClick={() => {

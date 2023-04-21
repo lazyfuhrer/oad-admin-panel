@@ -2,9 +2,11 @@ import CompanyInfoCard from '@/components/CompanyInfoCard'
 import { Box, Stack } from '@chakra-ui/react'
 import axios from 'axios';
 import { MD5 } from 'crypto-js';
+import { useRouter } from 'next/router';
 import React, { Fragment, useEffect, useState } from 'react'
 
 export default function CompanyInfo() {
+  const router = useRouter();
   const [data, setData] = useState([]);
 
   const generateDigestHash = (
@@ -55,6 +57,7 @@ export default function CompanyInfo() {
           'https://apps.teamworkcss.com/oakwooduat/api/index/companies',
           config,
         );
+        console.log(response.data.data);
         setData(response.data.data);
       } catch (error) {
         console.log(error);
@@ -70,24 +73,23 @@ export default function CompanyInfo() {
     }
   }, [data]);*/
 
+  const selectedIndex = router.query.id;
   return (
     <>
       {data.length > 0 && (
         <Stack spacing={'2'} mb={'1'}>
-          {data.map((item, index) => (
-            <Box key={index} mb={'5'} borderBottom={'1px'}>
+            <Box mb={'5'} borderBottom={'1px'}>
               <CompanyInfoCard field={"UEN"} value={""} />
-              <CompanyInfoCard field={"COMPANY NAME"} value={item.entity_name} />
-              <CompanyInfoCard field={"INCORPORATION DATE"} value={item.incorporation_date} />
+              <CompanyInfoCard field={"COMPANY NAME"} value={data[selectedIndex].entity_name} />
+              <CompanyInfoCard field={"INCORPORATION DATE"} value={data[selectedIndex].incorporation_date} />
               <CompanyInfoCard field={"COMPANY TYPE"} value={""} />
               <CompanyInfoCard field={"PRINCIPAL ACTIVITY 1"} value={""} />
               <CompanyInfoCard field={"PRINCIPAL ACTIVITY 2"} value={""} />
-              <CompanyInfoCard field={"REGISTERED OFFICE ADDRESS"} value={item.registred_office_address} />
+              <CompanyInfoCard field={"REGISTERED OFFICE ADDRESS"} value={data[selectedIndex].registred_office_address} />
               <CompanyInfoCard field={"FINANCIAL YEAR END"} value={""} />
               <CompanyInfoCard field={"DATE OF LAST AGM"} value={""} />
               <CompanyInfoCard field={"WEBSITE"} value={""} />
             </Box>
-          ))}
         </Stack>
       )}
     </>
