@@ -74,7 +74,7 @@ export default function CompanyInfo() {
   }, [data]);*/
 
   const companyId = router.query.id;
-  console.log(companyId)
+  //console.log(companyId)
   useEffect(() => {
     if (typeof id === 'undefined') {
       router.replace('/companyinfo?id=0');

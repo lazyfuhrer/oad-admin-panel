@@ -218,7 +218,13 @@ const SidebarContent = ({ onClose, ...rest }) => {
   )
 }
 
-const NavItem = ({ icon, to, children, ...rest }) => {
+const NavItem = ({ icon, to, children, subItems, ...rest }) => {
+  const [showSubItems, setShowSubItems] = useState(false);
+
+  const toggleSubItems = () => {
+    setShowSubItems(!showSubItems);
+  };
+
   return (
     <Link
       as={NextLink}
@@ -235,6 +241,11 @@ const NavItem = ({ icon, to, children, ...rest }) => {
         _hover={{
           bg: "yellow.400",
           color: "white"
+        }}
+        onClick={() => {
+          if (children === 'OFFICERS') {
+            toggleSubItems();
+          }
         }}
         {...rest}
         fontSize={'14px'}
@@ -254,6 +265,109 @@ const NavItem = ({ icon, to, children, ...rest }) => {
         {children}
       </Flex>
       <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
+      {showSubItems && children === 'OFFICERS' && (
+        <Box zIndex={'999'} mx={5}>
+        <Flex
+            align="center"
+            p="2"
+            mx="0"
+            role="group"
+            cursor="pointer"
+            _hover={{
+              bg: "yellow.400",
+              color: "white"
+            }}
+            _groupHover={{
+              color: "white"
+            }}
+            {...rest}
+            fontSize={'12px'}
+            fontWeight={'bold'}
+          >
+            <Icon
+              mr="4"
+              fontSize="14"
+              as={FiTrendingUp}
+            />
+            DIRECTORS
+          </Flex>
+          <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
+          <Flex
+            align="center"
+            p="2"
+            mx="0"
+            role="group"
+            cursor="pointer"
+            _hover={{
+              bg: "yellow.400",
+              color: "white"
+            }}
+            _groupHover={{
+              color: "white"
+            }}
+            {...rest}
+            fontSize={'12px'}
+            fontWeight={'bold'}
+          >
+            <Icon
+              mr="4"
+              fontSize="14"
+              as={FiTrendingUp}
+            />
+            SHAREHOLDERS
+          </Flex>
+          <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
+          <Flex
+            align="center"
+            p="2"
+            mx="0"
+            role="group"
+            cursor="pointer"
+            _hover={{
+              bg: "yellow.400",
+              color: "white"
+            }}
+            _groupHover={{
+              color: "white"
+            }}
+            {...rest}
+            fontSize={'12px'}
+            fontWeight={'bold'}
+          >
+            <Icon
+              mr="4"
+              fontSize="14"
+              as={FiTrendingUp}
+            />
+            COMPANY SECRETARY
+          </Flex>
+          <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
+          <Flex
+            align="center"
+            p="2"
+            mx="0"
+            role="group"
+            cursor="pointer"
+            _hover={{
+              bg: "yellow.400",
+              color: "white"
+            }}
+            _groupHover={{
+              color: "white"
+            }}
+            {...rest}
+            fontSize={'12px'}
+            fontWeight={'bold'}
+          >
+            <Icon
+              mr="4"
+              fontSize="14"
+              as={FiTrendingUp}
+            />
+            AUDITORS
+        </Flex>
+    </Box>
+      )}
     </Link>
   )
 }
