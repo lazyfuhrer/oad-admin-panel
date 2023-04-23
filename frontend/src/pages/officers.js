@@ -11,9 +11,9 @@ export default function Officers() {
       {/* {officers.map((officer, index) => (
         <ProfileCard key={index} name={officer} />
       ))} */}
-      <HStack>
+      <HStack align={'flex-start'}>
         <Stack spacing={'2'} mb={'1'} maxWidth={'1000px'}>
-          <Box >
+          <Box>
             <CompanyInfoCard field={"NAME"} value={"JACK SUPERSTAR DENVERS"} />
             <CompanyInfoCard field={"ID"} value={"S8012345G"} />
             <CompanyInfoCard field={"NATIONALITY"} value={"SINGAPOREAN"} />
@@ -30,7 +30,7 @@ export default function Officers() {
             <CompanyInfoCard field={"LANGUAGES SPOKEN"} value={"ENGLISH, GERMAN, SPANISH"} />
           </Box>
         </Stack>
-
+        
         <OfficerProfileCard/>
       </HStack>
     </>
