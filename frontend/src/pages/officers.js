@@ -1,17 +1,18 @@
 import CompanyInfoCard from '@/components/CompanyInfoCard'
 import CompanyInfoCardSmall from '@/components/CompanyInfoCardSmall';
+import OfficerProfile from '@/components/OfficerProfile';
 import OfficerProfileCard from '@/components/OfficerProfileCard';
-//import ProfileCard from '@/components/ProfileCard';
+import ProfileCard from '@/components/ProfileCard';
 import { Box, Flex, HStack, Stack } from '@chakra-ui/react';
 
 export default function Officers() {
-  //const officers = ['JILL HILL SMITH', 'JACK SUPERSTAR DENVERS', 'HADWICK BOTZMAN'];
+  const officers = ['JILL HILL SMITH', 'JACK SUPERSTAR DENVERS', 'HADWICK BOTZMAN'];
   return (
     <>
-      {/* {officers.map((officer, index) => (
+      {officers.map((officer, index) => (
         <ProfileCard key={index} name={officer} />
-      ))} */}
-      <HStack align={'flex-start'}>
+      ))}
+      {/* <HStack align={'flex-start'}>
         <Stack spacing={'2'} mb={'1'} maxWidth={'1000px'}>
           <Box>
             <CompanyInfoCard field={"NAME"} value={"JACK SUPERSTAR DENVERS"} />
@@ -32,7 +33,16 @@ export default function Officers() {
         </Stack>
         
         <OfficerProfileCard/>
-      </HStack>
+      </HStack> */}
+      <OfficerProfile
+        name="JACK SUPERSTAR DENVERS"
+        country="Singapore, Singapore"
+        mobileNumber="+65 1234 5678"
+        email="getjack@gmail.com"
+        address="7030 ANG MO KIO AVENUE 5 SINGAPORE 569880, SINGAPORE 08-94"
+        avatarUrl="https://bit.ly/sage-adebayo"
+        licensed={true}
+      />
     </>
   )
 }
