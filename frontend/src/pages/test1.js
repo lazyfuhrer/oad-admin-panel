@@ -22,7 +22,28 @@ export default function Test() {
 
   const addCompany = async () => {
     const formData = new FormData();
+    formData.append('css-client', '1');
+    formData.append('entity_name', 'NewTest');
+    formData.append('former_name_if_any', 'OldTest');
+    formData.append('company_id', '47');
+    formData.append('entity_type', '2');
+    formData.append('registration_no', '478');
+    formData.append('acra_uen', '4789');
     formData.append('country', 'India');
+    formData.append('risk_assessment_rating', '2');
+    formData.append('incorporation_date', '30/04/2023');
+    formData.append('website', 'https://github.com/lazyfuhrer');
+    formData.append('default_address', '0');
+    formData.append('block_0', 'M');
+    formData.append('street_name_0', '7th st.');
+    formData.append('building_0', 'GreenWoods');
+    formData.append('level_0', '3');
+    formData.append('unit_no_0', '17');
+    formData.append('country_0', 'India');
+    formData.append('state_0', 'West Bengal');
+    formData.append('city_0', 'Kolkata');
+    formData.append('postal_code_0', '700120');
+
   
     try {
       const response = await axios.post(
