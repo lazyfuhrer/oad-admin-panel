@@ -86,16 +86,16 @@ export default function CompanyInfo() {
       {data.length > 0 && (
         <Stack spacing={'2'} mb={'1'}>
             <Box mb={'5'} >
-              <CompanyInfoCard field={"UEN"} value={""} />
+              <CompanyInfoCard field={"UEN"} value={data[companyId].acra_uen} />
               <CompanyInfoCard field={"COMPANY NAME"} value={data[companyId].entity_name} />
               <CompanyInfoCard field={"INCORPORATION DATE"} value={data[companyId].incorporation_date} />
-              <CompanyInfoCard field={"COMPANY TYPE"} value={""} />
-              <CompanyInfoCard field={"PRINCIPAL ACTIVITY 1"} value={""} />
-              <CompanyInfoCard field={"PRINCIPAL ACTIVITY 2"} value={""} />
+              <CompanyInfoCard field={"COMPANY TYPE"} value={data[companyId].entity_type} />
+              <CompanyInfoCard field={"PRINCIPAL ACTIVITY 1"} value={data[companyId].default_ssic_description_I} />
+              <CompanyInfoCard field={"PRINCIPAL ACTIVITY 2"} value={data[companyId].default_ssic_description_II} />
               <CompanyInfoCard field={"REGISTERED OFFICE ADDRESS"} value={data[companyId].registred_office_address} />
               <CompanyInfoCard field={"FINANCIAL YEAR END"} value={""} />
               <CompanyInfoCard field={"DATE OF LAST AGM"} value={""} />
-              <CompanyInfoCard field={"WEBSITE"} value={""} />
+              <CompanyInfoCard field={"WEBSITE"} value={data[companyId].website} />
             </Box>
         </Stack>
       )}

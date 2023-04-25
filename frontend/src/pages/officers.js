@@ -10,7 +10,7 @@ export default function Officers() {
   return (
     <>
       {officers.map((officer, index) => (
-        <ProfileCard key={index} name={officer} />
+        <ProfileCard key={index} name={officer}/>
       ))}
       {/* <HStack align={'flex-start'}>
         <Stack spacing={'2'} mb={'1'} maxWidth={'1000px'}>
@@ -34,7 +34,7 @@ export default function Officers() {
         
         <OfficerProfileCard/>
       </HStack> */}
-      <OfficerProfile
+      {/* <OfficerProfile
         name="JACK SUPERSTAR DENVERS"
         country="Singapore, Singapore"
         mobileNumber="+65 1234 5678"
@@ -42,7 +42,7 @@ export default function Officers() {
         address="7030 ANG MO KIO AVENUE 5 SINGAPORE 569880, SINGAPORE 08-94"
         avatarUrl="https://bit.ly/sage-adebayo"
         licensed={true}
-      />
+      /> */}
     </>
   )
 }
