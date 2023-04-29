@@ -62,10 +62,20 @@ export default function CompanyInfo() {
       } catch (error) {
         console.log(error);
       }
+
+      try {
+        const responseComp = await axios.get(
+          'http://localhost:3000/api/getcompany',
+        );
+        console.log(responseComp.data.allCompanies);
+      } catch (error) {
+        console.log(error);
+      }
     };
   
     fetchData();
   }, []);
+  
   
   /*useEffect(() => {
     if (data.length > 0) {

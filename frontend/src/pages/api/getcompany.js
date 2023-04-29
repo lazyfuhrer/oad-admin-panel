@@ -1,9 +1,9 @@
 import connectToDatabase from '../../../database/conn';
-import User from '../../../model/Schema';
+import Company from '../../../model/Company';
 
 export default async function handler(req, res) {
     await connectToDatabase();
    
-    const allUsers = await User.find({});
-    res.status(200).json({allUsers});
+    const allCompanies = await Company.find({});
+    res.status(200).json({allCompanies});
 };
