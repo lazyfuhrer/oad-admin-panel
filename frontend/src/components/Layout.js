@@ -1,40 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-import {
-  IconButton,
-  Avatar,
-  Box,
-  CloseButton,
-  Flex,
-  HStack,
-  VStack,
-  Icon,
-  useColorModeValue,
-  Link,
-  Drawer,
-  DrawerContent,
-  Text,
-  useDisclosure,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-  InputGroup,
-  InputRightElement,
-  Input,
-  Divider,
-  Select,
-  useColorMode
-} from "@chakra-ui/react"
-import { FiHome, FiTrendingUp, FiCompass, FiStar, FiSettings, FiMenu, FiBell, FiChevronDown, FiSearch, FiMaximize, FiAlignRight, FiEdit, FiActivity, FiLogOut } from "react-icons/fi"
+import { IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, Link, Drawer, DrawerContent, Text, useDisclosure, Menu, MenuButton, MenuDivider, MenuItem, MenuList, InputGroup, InputRightElement, Input, Divider, Select, useColorMode } from "@chakra-ui/react"
+import { FiHome, FiTrendingUp, FiSettings, FiMenu, FiBell, FiChevronDown, FiSearch, FiMaximize, FiAlignRight, FiEdit, FiActivity, FiLogOut } from "react-icons/fi"
 import { CgProfile} from "react-icons/cg"
 import NextLink from 'next/link'
 import { useRouter } from "next/router"
 import { UserContext } from "@/context/UserContext"
-import { MD5 } from "crypto-js"
-import axios from "axios"
 import { FaMoon, FaSun } from "react-icons/fa"
-
+import { teamworkCompanyGet } from "../../utils/TeamworkCompanies"
 
 const LinkItems = [
   { name: "DASHBOARD", icon: FiHome, to: '/' },
@@ -84,61 +56,12 @@ export default function Layout({ children }) {
 const SidebarContent = ({ onClose, ...rest }) => {
   const [data, setData] = useState([]);
 
-  const generateDigestHash = (
-    username,
-    password,
-    realm,
-    method,
-    uri,
-    nonce,
-    nc,
-    cnonce,
-  ) => {
-    const ha1 = MD5(`${username}:${realm}:${password}`);
-    const ha2 = MD5(`${method}:${uri}`);
-    const response = MD5(`${ha1}:${nonce}:${nc}:${cnonce}:auth:${ha2}`);
-    return response.toString();
-  };
-
-  const username = 'admin';
-  const password = 'Admin@123';
-  const realm = 'REST API';
-  const uri = 'https://apps.teamworkcss.com/oakwooduat/api/index/companies';
-  const nonce = '63f5052db69f6';
-  const nc = '00000001';
-  const cnonce = Math.random().toString(36).substring(2);
-  const method = 'GET';
-
-  const config = {
-    headers: {
-      'x-api-key': '91bcec91-ddf0-402c-b287-a03d3563c320',
-      Authorization: `Digest username="${username}", realm="${realm}", nonce="${nonce}", uri="${uri}", qop=auth, nc=${nc}, cnonce="${cnonce}", response="${generateDigestHash(
-        username,
-        password,
-        realm,
-        method,
-        uri,
-        nonce,
-        nc,
-        cnonce,
-      )}"`,
-    },
-  };
-
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'https://apps.teamworkcss.com/oakwooduat/api/index/companies',
-          config,
-        );
-        //console.log(response.data.data)
-        setData(response.data.data);
-      } catch (error) {
-        console.log(error);
-      }
+      const response = await teamworkCompanyGet();
+      setData(response);
     };
-  
+
     fetchData();
   }, []);
 
