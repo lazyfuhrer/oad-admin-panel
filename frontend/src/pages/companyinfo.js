@@ -1,114 +1,76 @@
-import CompanyInfoCard from '@/components/CompanyInfoCard'
-import { Box, Stack } from '@chakra-ui/react'
+import CompanyInfoCard from '@/components/CompanyInfoCard';
+import { Box, Stack } from '@chakra-ui/react';
 import axios from 'axios';
-import { MD5 } from 'crypto-js';
 import { useRouter } from 'next/router';
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
+import { teamworkCompanyGet } from '../../utils/TeamworkCompanies';
 
 export default function CompanyInfo() {
   const router = useRouter();
   const [data, setData] = useState([]);
-
-  const generateDigestHash = (
-    username,
-    password,
-    realm,
-    method,
-    uri,
-    nonce,
-    nc,
-    cnonce,
-  ) => {
-    const ha1 = MD5(`${username}:${realm}:${password}`);
-    const ha2 = MD5(`${method}:${uri}`);
-    const response = MD5(`${ha1}:${nonce}:${nc}:${cnonce}:auth:${ha2}`);
-    return response.toString();
-  };
-
-  const username = 'admin';
-  const password = 'Admin@123';
-  const realm = 'REST API';
-  const uri = 'https://apps.teamworkcss.com/oakwooduat/api/index/companies';
-  const nonce = '63f5052db69f6';
-  const nc = '00000001';
-  const cnonce = Math.random().toString(36).substring(2);
-  const method = 'GET';
-
-  const config = {
-    headers: {
-      'x-api-key': '91bcec91-ddf0-402c-b287-a03d3563c320',
-      Authorization: `Digest username="${username}", realm="${realm}", nonce="${nonce}", uri="${uri}", qop=auth, nc=${nc}, cnonce="${cnonce}", response="${generateDigestHash(
-        username,
-        password,
-        realm,
-        method,
-        uri,
-        nonce,
-        nc,
-        cnonce,
-      )}"`,
-    },
-  };
+  const [companyData, setCompanyData] = useState({});
+  const [companyAddress, setCompanyAddress] = useState('NA');
+  const companyId = router.query.id;
+  const companyAddressRef = useRef(companyAddress);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'https://apps.teamworkcss.com/oakwooduat/api/index/companies',
-          config,
-        );
-        //console.log(response.data.data);
-        setData(response.data.data);
-      } catch (error) {
-        console.log(error);
-      }
+      const response = await teamworkCompanyGet();
+      setData(response);
+    };
 
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (typeof companyId !== 'undefined' && data.length > 0) {
+      setCompanyData(data[companyId]);
+    }
+  }, [companyId, data]);
+
+  useEffect(() => {
+    const fetchCompany = async () => {
       try {
-        const responseComp = await axios.get(
-          'http://localhost:3000/api/getcompany',
-        );
-        console.log(responseComp.data.allCompanies);
+        const responseComp = await axios.get('http://localhost:3000/api/getcompany');
+        if (companyData.entity_name && responseComp.data.allCompanies) {
+          const foundCompany = responseComp.data.allCompanies.find((company) => company.companyName === companyData.entity_name);
+          if (foundCompany) {
+            companyAddressRef.current = foundCompany.companyBlock+', '+foundCompany.companyStreet+', '+foundCompany.companyBuilding+', '+foundCompany.companyUnit+', '+foundCompany.companyCity+', '+foundCompany.companyCountry+', '+foundCompany.companyPincode;
+            setCompanyAddress(companyAddressRef.current);
+          }
+          else {
+            companyAddressRef.current = 'NA';
+            setCompanyAddress(companyAddressRef.current);
+          }
+        }        
       } catch (error) {
         console.log(error);
       }
     };
-  
-    fetchData();
-  }, []);
-  
-  
-  /*useEffect(() => {
-    if (data.length > 0) {
-      console.log(data);
-    }
-  }, [data]);*/
 
-  const companyId = router.query.id;
-  //console.log(companyId)
-  useEffect(() => {
-    if (typeof id === 'undefined') {
-      router.replace('/companyinfo?id=0');
+    if (companyData.entity_name) {
+      fetchCompany();
     }
-  }, []);
+  }, [companyData]);
 
   return (
     <>
       {data.length > 0 && (
         <Stack spacing={'2'} mb={'1'}>
-            <Box mb={'5'} >
-              <CompanyInfoCard field={"UEN"} value={data[companyId].acra_uen} />
-              <CompanyInfoCard field={"COMPANY NAME"} value={data[companyId].entity_name} />
-              <CompanyInfoCard field={"INCORPORATION DATE"} value={data[companyId].incorporation_date} />
-              <CompanyInfoCard field={"COMPANY TYPE"} value={data[companyId].entity_type} />
-              <CompanyInfoCard field={"PRINCIPAL ACTIVITY 1"} value={data[companyId].default_ssic_description_I} />
-              <CompanyInfoCard field={"PRINCIPAL ACTIVITY 2"} value={data[companyId].default_ssic_description_II} />
-              <CompanyInfoCard field={"REGISTERED OFFICE ADDRESS"} value={data[companyId].registred_office_address} />
-              <CompanyInfoCard field={"FINANCIAL YEAR END"} value={""} />
-              <CompanyInfoCard field={"DATE OF LAST AGM"} value={""} />
-              <CompanyInfoCard field={"WEBSITE"} value={data[companyId].website} />
-            </Box>
+          <Box mb={'5'}>
+            <CompanyInfoCard field={'UEN'} value={companyData?.acra_uen} />
+            <CompanyInfoCard field={'COMPANY NAME'} value={companyData?.entity_name} />
+            <CompanyInfoCard field={'INCORPORATION DATE'} value={companyData?.incorporation_date} />
+            <CompanyInfoCard field={'COMPANY TYPE'} value={companyData?.entity_type} />
+            <CompanyInfoCard field={'PRINCIPAL ACTIVITY 1'} value={companyData?.default_ssic_description_I} />
+            <CompanyInfoCard field={'PRINCIPAL ACTIVITY 2'} value={companyData?.default_ssic_description_II} />
+            <CompanyInfoCard field={'REGISTERED OFFICE ADDRESS'} value={companyAddress} />
+            <CompanyInfoCard field={'FINANCIAL YEAR END'} value={''} />
+            <CompanyInfoCard field={'DATE OF LAST AGM'} value={''} />
+            <CompanyInfoCard field={'WEBSITE'} value={companyData?.website} />
+          </Box>
         </Stack>
       )}
     </>
   );
-}
+};
