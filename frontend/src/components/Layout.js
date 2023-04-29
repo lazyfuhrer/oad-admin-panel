@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-import { IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, Link, Drawer, DrawerContent, Text, useDisclosure, Menu, MenuButton, MenuDivider, MenuItem, MenuList, InputGroup, InputRightElement, Input, Divider, Select, useColorMode } from "@chakra-ui/react"
+import { IconButton, Avatar, Box, CloseButton, Flex, HStack, VStack, Icon, useColorModeValue, Link, Drawer, DrawerContent, Text, useDisclosure, Menu, MenuButton, MenuDivider, MenuItem, MenuList, InputGroup, InputRightElement, Input, Divider, useColorMode } from "@chakra-ui/react"
 import { FiHome, FiTrendingUp, FiSettings, FiMenu, FiBell, FiChevronDown, FiSearch, FiMaximize, FiAlignRight, FiEdit, FiActivity, FiLogOut } from "react-icons/fi"
 import { CgProfile} from "react-icons/cg"
 import NextLink from 'next/link'
@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 import { UserContext } from "@/context/UserContext"
 import { FaMoon, FaSun } from "react-icons/fa"
 import { teamworkCompanyGet } from "../../utils/TeamworkCompanies"
+import Select from 'react-select';
 
 const LinkItems = [
   { name: "DASHBOARD", icon: FiHome, to: '/' },
@@ -69,22 +70,8 @@ const SidebarContent = ({ onClose, ...rest }) => {
   const router = useRouter();
   const isActive = (pathname) => router.pathname === pathname;
 
-  function handleCompanySelect(event) {
-    const selectedIndex = event.target.selectedIndex;
-    router.push({ query: { id: selectedIndex } });
-  }
-
   return (
-    <Box
-      transition="3s ease"
-      bg={useColorModeValue("white", "gray.900")}
-      borderRight="1px"
-      borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}
-    >
+    <Box transition="3s ease" bg={useColorModeValue("white", "gray.900")} borderRight="1px" borderRightColor={useColorModeValue("gray.200", "gray.700")} w={{ base: "full", md: 60 }} pos="fixed" h="full"{...rest}>
       <Flex  alignItems="center" mx="8" justifyContent="space-between">
         <VStack mt={'5'} mb={'3'} spacing="1">
           <HStack >
@@ -94,18 +81,16 @@ const SidebarContent = ({ onClose, ...rest }) => {
             <FiSettings />
           </HStack>
           <Avatar src='https://bit.ly/sage-adebayo' size="lg" />
-          <Flex
-            align="center"
-            fontSize={'14px'}
-            fontWeight={'bold'}
-          >
-            <Select width="200px" defaultValue={data.length > 0 ? data[0].entity_name : ''} onChange={handleCompanySelect}>
-              {data.map((company, index) => (
-                <option key={index} value={index}>
-                  {company.entity_name}
-                </option>
-              ))}
-            </Select>
+          <Flex align="center" fontSize={'14px'} fontWeight={'bold'} direction="column">
+            <Select
+              options={data.map((company, index) => ({ value: index, label: company.entity_name }))}
+              defaultValue={{ value: 0, label: data.length > 0 ? data[0].entity_name : '' }}
+              onChange={(selectedOption) => {
+                const selectedIndex = selectedOption.value;
+                router.push({ query: { id: selectedIndex } });
+              }}
+              styles={{ control: (provided) => ({ ...provided, width: 180, borderRadius: 5 }) }}
+            />
           </Flex>
         </VStack>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
@@ -124,18 +109,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
         if ((link.name === 'VIEW USERS' || link.name === 'BILLING' || link.name === 'OFFICERS' || link.name === 'SHARES' || link.name === 'DOCUMENTS' || link.name === 'PARTNERSHIPS' || link.name === 'CONTACT') && role == 'customerFinance') {
           return null;
         }
-
-        return (
-          <NavItem
-            key={link.name}
-            icon={link.icon}
-            to={link.to}
-            bg={isActive(link.to) ? 'rgb(128, 90, 213)' : ''}
-            color={isActive(link.to) ? 'white' : ''}
-          >
-            {link.name}
-          </NavItem>
-        );
+        return ( <NavItem key={link.name} icon={link.icon} to={link.to} bg={isActive(link.to) ? 'rgb(128, 90, 213)' : ''} color={isActive(link.to) ? 'white' : ''}>{link.name}</NavItem> );
       })}
     </Box>
   )
