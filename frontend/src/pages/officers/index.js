@@ -5,7 +5,7 @@ import OfficerProfileCard from '@/components/OfficerProfileCard';
 import ProfileCard from '@/components/ProfileCard';
 import { Box, Flex, HStack, Stack } from '@chakra-ui/react';
 
-export default function Officers() {
+export default function Home() {
   const officers = ['JILL HILL SMITH', 'JACK SUPERSTAR DENVERS', 'HADWICK BOTZMAN'];
   return (
     <>

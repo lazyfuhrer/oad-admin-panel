@@ -20,7 +20,7 @@ const LinkItems = [
   { name: "ACCOUNTING", icon: FiSettings, to: '/accounting' },
   { name: "BILLING", icon: FiSettings, to: '/billing' },
   { name: "PARTNERSHIPS", icon: FiSettings, to: '/partnerships' },
-  { name: "CONTACT", icon: FiSettings, to: '/contact' }
+  { name: "CONTACT", icon: FiSettings, to: '/contact' },
 ]
 
 export default function Layout({ children }) {
@@ -164,106 +164,114 @@ const NavItem = ({ icon, to, children, subItems, ...rest }) => {
       <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
       {showSubItems && children === 'OFFICERS' && (
         <Box zIndex={'999'} mx={5}>
-        <Flex
-            align="center"
-            p="2"
-            mx="0"
-            role="group"
-            cursor="pointer"
-            _hover={{
-              bg: "yellow.400",
-              color: "white"
-            }}
-            _groupHover={{
-              color: "white"
-            }}
-            {...rest}
-            fontSize={'12px'}
-            fontWeight={'bold'}
-          >
-            <Icon
-              mr="4"
-              fontSize="14"
-              as={FiTrendingUp}
-            />
-            DIRECTORS
-          </Flex>
+          <Link as={NextLink} href={'/officers/directors'} style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
+            <Flex
+                align="center"
+                p="2"
+                mx="0"
+                role="group"
+                cursor="pointer"
+                _hover={{
+                  bg: "yellow.400",
+                  color: "white"
+                }}
+                _groupHover={{
+                  color: "white"
+                }}
+                {...rest}
+                fontSize={'12px'}
+                fontWeight={'bold'}
+              >
+                <Icon
+                  mr="4"
+                  fontSize="14"
+                  as={FiTrendingUp}
+                />
+                DIRECTORS
+              </Flex>
+            </Link>
           <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
-          <Flex
-            align="center"
-            p="2"
-            mx="0"
-            role="group"
-            cursor="pointer"
-            _hover={{
-              bg: "yellow.400",
-              color: "white"
-            }}
-            _groupHover={{
-              color: "white"
-            }}
-            {...rest}
-            fontSize={'12px'}
-            fontWeight={'bold'}
-          >
-            <Icon
-              mr="4"
-              fontSize="14"
-              as={FiTrendingUp}
-            />
-            SHAREHOLDERS
-          </Flex>
+          <Link as={NextLink} href={'/officers/shareholders'} style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
+            <Flex
+              align="center"
+              p="2"
+              mx="0"
+              role="group"
+              cursor="pointer"
+              _hover={{
+                bg: "yellow.400",
+                color: "white"
+              }}
+              _groupHover={{
+                color: "white"
+              }}
+              {...rest}
+              fontSize={'12px'}
+              fontWeight={'bold'}
+            >
+              <Icon
+                mr="4"
+                fontSize="14"
+                as={FiTrendingUp}
+              />
+              SHAREHOLDERS
+            </Flex>
+          </Link>
           <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
-          <Flex
-            align="center"
-            p="2"
-            mx="0"
-            role="group"
-            cursor="pointer"
-            _hover={{
-              bg: "yellow.400",
-              color: "white"
-            }}
-            _groupHover={{
-              color: "white"
-            }}
-            {...rest}
-            fontSize={'12px'}
-            fontWeight={'bold'}
-          >
-            <Icon
-              mr="4"
-              fontSize="14"
-              as={FiTrendingUp}
-            />
-            COMPANY SECRETARY
-          </Flex>
+          <Link as={NextLink} href={'/officers/companysecretary'} style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
+            <Flex
+              align="center"
+              p="2"
+              mx="0"
+              role="group"
+              cursor="pointer"
+              _hover={{
+                bg: "yellow.400",
+                color: "white"
+              }}
+              _groupHover={{
+                color: "white"
+              }}
+              {...rest}
+              fontSize={'12px'}
+              fontWeight={'bold'}
+            >
+              <Icon
+                mr="4"
+                fontSize="14"
+                as={FiTrendingUp}
+              />
+              COMPANY SECRETARY
+            </Flex>
+          </Link>
           <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
-          <Flex
-            align="center"
-            p="2"
-            mx="0"
-            role="group"
-            cursor="pointer"
-            _hover={{
-              bg: "yellow.400",
-              color: "white"
-            }}
-            _groupHover={{
-              color: "white"
-            }}
-            {...rest}
-            fontSize={'12px'}
-            fontWeight={'bold'}
-          >
-            <Icon
-              mr="4"
-              fontSize="14"
-              as={FiTrendingUp}
-            />
-            AUDITORS
-        </Flex>
-    </Box>
+          <Link as={NextLink} href={'/officers/auditors'} style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
+            <Flex
+              align="center"
+              p="2"
+              mx="0"
+              role="group"
+              cursor="pointer"
+              _hover={{
+                bg: "yellow.400",
+                color: "white"
+              }}
+              _groupHover={{
+                color: "white"
+              }}
+              {...rest}
+              fontSize={'12px'}
+              fontWeight={'bold'}
+            >
+              <Icon
+                mr="4"
+                fontSize="14"
+                as={FiTrendingUp}
+              />
+              AUDITORS
+            </Flex>
+          </Link>
+        </Box>
       )}
     </Link>
   )
