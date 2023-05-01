@@ -1,17 +1,15 @@
-import CompanyInfoCard from '@/components/CompanyInfoCard'
-import CompanyInfoCardSmall from '@/components/CompanyInfoCardSmall';
-import OfficerProfile from '@/components/OfficerProfile';
-import OfficerProfileCard from '@/components/OfficerProfileCard';
-import ProfileCard from '@/components/ProfileCard';
-import { Box, Flex, HStack, Stack } from '@chakra-ui/react';
+import ProfileCard from "@/components/ProfileCard";
+import { UserContext } from "@/context/UserContext";
+import { useContext } from "react";
 
 export default function Directors() {
-  const officers = ['JILL HILL SMITH', 'JACK SUPERSTAR DENVERS', 'HADWICK BOTZMAN'];
+  const { allCompanies } = useContext(UserContext);
+
   return (
     <>
-      {officers.map((officer, index) => (
-        <ProfileCard key={index} name={officer}/>
+      {allCompanies && allCompanies[2].directors.map((director, index) => (
+        <ProfileCard key={index} name={director.data.directorName}/>
       ))}
     </>
-  )
-}
+  );
+};

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 export const UserContext = createContext();
 
@@ -18,12 +19,25 @@ export const UserProvider = ({ children }) => {
     }
   }, [userData]);
 
-  const { user, permissions, token } = userData || {};
+  useEffect(() => {
+    const fetchCompany = async () => {
+      try {
+        const responseComp = await axios.get('http://localhost:3000/api/getcompany');
+        const allCompanies = responseComp.data.allCompanies;
+        setUserData({ ...userData, allCompanies });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCompany();
+  }, []);
+
+  const { user, permissions, token, allCompanies } = userData || {};
   const { firstname, lastname } = user || {};
   const { role } = permissions || {};
 
   return (
-    <UserContext.Provider value={{ userData, setUserData, firstname, lastname, role, token }}>
+    <UserContext.Provider value={{ userData, setUserData, firstname, lastname, role, token, allCompanies }}>
       {children}
     </UserContext.Provider>
   );
