@@ -25,13 +25,14 @@ export const UserProvider = ({ children }) => {
       try {
         const responseComp = await axios.get('http://localhost:3000/api/getcompany');
         const allCompanies = responseComp.data.allCompanies;
-        setUserData({ ...userData, allCompanies });
+        setUserData(prevUserData => ({ ...prevUserData, allCompanies }));
       } catch (error) {
         console.log(error);
       }
     };
     fetchCompany();
   }, []);
+  
 
   const { user, permissions, token, allCompanies } = userData || {};
   const { firstname, lastname } = user || {};
