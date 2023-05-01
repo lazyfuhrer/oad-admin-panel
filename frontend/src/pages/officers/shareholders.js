@@ -6,7 +6,7 @@ export default function Shareholders() {
   const { allCompanies } = useContext(UserContext);
   return (
     <>
-      {allCompanies && allCompanies[2].shareholders.map((shareholder, index) => (
+      {allCompanies && allCompanies[0].shareholders.map((shareholder, index) => (
         <ProfileCard key={index} name={shareholder.data.nameOfShareholder}/>
       ))}
     </>
