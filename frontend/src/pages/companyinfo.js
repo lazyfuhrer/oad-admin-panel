@@ -2,8 +2,9 @@ import CompanyInfoCard from '@/components/CompanyInfoCard';
 import { Box, Stack } from '@chakra-ui/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { teamworkCompanyGet } from '../../utils/TeamworkCompanies';
+import { UserContext } from '@/context/UserContext';
 
 export default function CompanyInfo() {
   const router = useRouter();
@@ -12,6 +13,7 @@ export default function CompanyInfo() {
   const [companyAddress, setCompanyAddress] = useState('NA');
   const companyId = router.query.id;
   const companyAddressRef = useRef(companyAddress);
+  const { allCompanies, selectedValue } = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,9 +33,8 @@ export default function CompanyInfo() {
   useEffect(() => {
     const fetchCompany = async () => {
       try {
-        const responseComp = await axios.get('http://localhost:3000/api/getcompany');
-        if (companyData.entity_name && responseComp.data.allCompanies) {
-          const foundCompany = responseComp.data.allCompanies.find((company) => company.companyName === companyData.entity_name);
+        if (companyData.entity_name && allCompanies) {
+          const foundCompany = allCompanies.find((company) => company.companyName === selectedValue);
           if (foundCompany) {
             companyAddressRef.current = foundCompany.companyBlock+', '+foundCompany.companyStreet+', '+foundCompany.companyBuilding+', '+foundCompany.companyUnit+', '+foundCompany.companyCity+', '+foundCompany.companyCountry+', '+foundCompany.companyPincode;
             setCompanyAddress(companyAddressRef.current);

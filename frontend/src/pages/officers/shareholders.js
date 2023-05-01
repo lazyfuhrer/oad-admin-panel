@@ -3,10 +3,11 @@ import { UserContext } from "@/context/UserContext";
 import { useContext } from "react";
 
 export default function Shareholders() {
-  const { allCompanies } = useContext(UserContext);
+  const { allCompanies, selectedValue } = useContext(UserContext);
+  const matchingCompany = allCompanies && allCompanies.find(company => company.companyName === selectedValue);
   return (
     <>
-      {allCompanies && allCompanies[0].shareholders.map((shareholder, index) => (
+      {matchingCompany && matchingCompany.shareholders.map((shareholder, index) => (
         <ProfileCard key={index} name={shareholder.data.nameOfShareholder}/>
       ))}
     </>

@@ -5,6 +5,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
+  const [selectedValue, setSelectedValue] = useState(null);
 
   useEffect(() => {
     const storedUserData = localStorage.getItem('userData');
@@ -37,7 +38,7 @@ export const UserProvider = ({ children }) => {
   const { role } = permissions || {};
 
   return (
-    <UserContext.Provider value={{ userData, setUserData, firstname, lastname, role, token, allCompanies }}>
+    <UserContext.Provider value={{ userData, setUserData, firstname, lastname, role, token, selectedValue, setSelectedValue, allCompanies }}>
       {children}
     </UserContext.Provider>
   );

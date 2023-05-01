@@ -61,12 +61,15 @@ const SidebarContent = ({ onClose, ...rest }) => {
     const fetchData = async () => {
       const response = await teamworkCompanyGet();
       setData(response);
+      if (selectedValue === null && response.length > 0) {
+        setSelectedValue(response[0].entity_name);
+      }
     };
 
     fetchData();
   }, []);
 
-  const { firstname, lastname, role } = useContext(UserContext);
+  const { firstname, lastname, role, selectedValue, setSelectedValue } = useContext(UserContext);
   const router = useRouter();
   const isActive = (pathname) => router.pathname === pathname;
 
@@ -84,9 +87,11 @@ const SidebarContent = ({ onClose, ...rest }) => {
           <Flex align="center" fontSize={'14px'} fontWeight={'bold'} direction="column">
             <Select
               options={data.map((company, index) => ({ value: index, label: company.entity_name }))}
-              defaultValue={{ value: 0, label: data.length > 0 ? data[0].entity_name : '' }}
+              value={{ value: 0, label: selectedValue }}
               onChange={(selectedOption) => {
+                const selectedValue = selectedOption.label;
                 const selectedIndex = selectedOption.value;
+                setSelectedValue(selectedValue);
                 router.push({ query: { id: selectedIndex } });
               }}
               styles={{ control: (provided) => ({ ...provided, width: 180, borderRadius: 5 }) }}
