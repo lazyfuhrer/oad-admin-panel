@@ -11,6 +11,7 @@ import Select from 'react-select';
 
 const LinkItems = [
   { name: "DASHBOARD", icon: FiHome, to: '/' },
+  { name: "REPORT", icon: FiHome, to: '/report' },
   { name: "COMPANY INFORMATION", icon: FiTrendingUp, to: '/companyinfo' },
   { name: "CREATE USERS", icon: FiTrendingUp, to: '/createusers' },
   { name: "VIEW USERS", icon: FiTrendingUp, to: '/viewusers' },
@@ -112,6 +113,9 @@ const SidebarContent = ({ onClose, ...rest }) => {
           return null;
         }
         if ((link.name === 'VIEW USERS' || link.name === 'BILLING' || link.name === 'OFFICERS' || link.name === 'SHARES' || link.name === 'DOCUMENTS' || link.name === 'PARTNERSHIPS' || link.name === 'CONTACT') && role == 'customerFinance') {
+          return null;
+        }
+        if (link.name === 'REPORT' && (role == 'executive' || role == 'customerAdmin' || role == 'customerOfficer' || role == 'customerFinance')) {
           return null;
         }
         return ( <NavItem key={link.name} icon={link.icon} to={link.to} bg={isActive(link.to) ? 'rgb(128, 90, 213)' : ''} color={isActive(link.to) ? 'white' : ''}>{link.name}</NavItem> );
