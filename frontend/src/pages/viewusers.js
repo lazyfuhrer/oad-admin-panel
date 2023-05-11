@@ -34,6 +34,7 @@ export default function ViewUsers() {
             <Text fontWeight="bold">NAME: {`${user.firstname} ${user.lastname}`}</Text>
             <Text fontWeight="bold">EMAIL: {user.email}</Text>
             <Text fontWeight="bold">ROLE: {user.role}</Text>
+            <Text fontWeight="bold">REPORT TO: {user.report}</Text>
           </Stack>
           {
             role != 'executive' && (
