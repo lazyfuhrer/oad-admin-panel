@@ -32,6 +32,10 @@ const userSchema = new Schema({
     status: {
         type: String,
         required: true
+    },
+    report: {
+        type: String,
+        required: true
     }
 }, { timestamps: true });
 

@@ -1,8 +1,12 @@
 import { Flex, Box, FormControl, FormLabel, Input, InputGroup, HStack, InputRightElement, Stack, Button, Heading, useColorModeValue, Select } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import axios from 'axios';
+//import { UserContext } from '@/context/UserContext';
   
 export default function CreateUsers() {
+    //const { role } = useContext(UserContext);
+    const [user, setUser] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
     const [showCpassword, setshowCpassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -13,7 +17,8 @@ export default function CreateUsers() {
       password: '',
       cpassword: '',
       role: 'customerAdmin',
-      status : 'active'
+      status : 'active',
+      report: 'admin',
     });
   
     const handleInputChange = (event) => {
@@ -32,8 +37,28 @@ export default function CreateUsers() {
        });
   
       if (res.ok) console.log(formData);
+      //console.log(formData);
     };
+
+    useEffect(() => {
+      async function getUserData() {
+        const response = await axios.get('/api/getuser');
+        setUser(response.data.allUsers);
+        console.log(response.data.allUsers);
+      }
+      getUserData();
+    }, []);
   
+    useEffect(() => {
+      if (formData.role === "executive" && user.length > 0) {
+        const firstManager = user.find((u) => u.role === "manager");
+        setFormData((prevState) => ({
+          ...prevState,
+          reportTo: `${firstManager.firstname} ${firstManager.lastname}`
+        }));
+      }
+    }, [formData.role, user]);
+    
     return (
       <Flex
         minH={'100vh'}
@@ -92,6 +117,16 @@ export default function CreateUsers() {
                   <option value="executive">Executive</option>
                 </Select>
               </FormControl>
+              {formData.role === "executive" ? (
+                <FormControl id="report" isRequired>
+                  <FormLabel>Assign to Manager</FormLabel>
+                  <Select value={formData.reportTo} onChange={handleInputChange}>
+                    {user.filter((u) => u.role === "manager").map((u, index) => (
+                      <option key={index} value={`${u.firstname} ${u.lastname}`}>{`${u.firstname} ${u.lastname}`}</option>
+                    ))}
+                  </Select>
+                </FormControl>
+              ) : null}
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
