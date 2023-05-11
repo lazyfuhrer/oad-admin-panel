@@ -1,22 +1,8 @@
-import {
-    Flex,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    InputGroup,
-    HStack,
-    InputRightElement,
-    Stack,
-    Button,
-    Heading,
-    useColorModeValue,
-    Select,
-  } from '@chakra-ui/react';
-  import { useState } from 'react';
-  import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { Flex, Box, FormControl, FormLabel, Input, InputGroup, HStack, InputRightElement, Stack, Button, Heading, useColorModeValue, Select } from '@chakra-ui/react';
+import { useState } from 'react';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
   
-  export default function CreateUsers() {
+export default function CreateUsers() {
     const [showPassword, setShowPassword] = useState(false);
     const [showCpassword, setshowCpassword] = useState(false);
     const [formData, setFormData] = useState({

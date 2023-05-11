@@ -103,7 +103,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
       <Divider orientation='horizontal' borderWidth={'1px'} borderColor="gray.300"/>
       {LinkItems.map(link => {
-        if (link.name === 'CREATE USERS' && role != 'admin') {
+        if (link.name === 'CREATE USERS' && (role != 'admin' && role != 'manager' && role != 'executive' )) { 
           return null;
         }
         if (link.name === 'VIEW USERS' && role == 'customerAdmin') {

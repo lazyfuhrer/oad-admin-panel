@@ -1,48 +1,90 @@
 import { useState } from 'react'
 
 const data = {
+    "managers": [
+    {
+      "id": 1,
+      "name": "Manager 1",
+      "executives": [1, 3]
+    },
+    {
+      "id": 2,
+      "name": "Manager 2",
+      "executives": [2, 4]
+    }
+  ],
     "executives": [
       {
         "id": 1,
-        "name": "John Doe",
-        "companies": [1, 2, 3]
+        "name": "Executive 1",
+        "companies": [1, 3, 5]
       },
       {
         "id": 2,
-        "name": "Jane Smith",
-        "companies": [4, 5, 6]
+        "name": "Executive 2",
+        "companies": [2, 4]
+      },
+      {
+        "id": 3,
+        "name": "Executive 3",
+        "companies": [6, 8, 10]
+      },
+      {
+        "id": 4,
+        "name": "Executive 4",
+        "companies": [7, 9]
       }
     ],
     "companies": [
       {
         "id": 1,
-        "name": "Acme Inc.",
+        "name": "Company 1",
         "executiveId": 1
       },
       {
         "id": 2,
-        "name": "XYZ Corp.",
-        "executiveId": 1
+        "name": "Company 2",
+        "executiveId": 2
       },
       {
         "id": 3,
-        "name": "ABC Ltd.",
+        "name": "Company 3",
         "executiveId": 1
       },
       {
         "id": 4,
-        "name": "Big Co.",
+        "name": "Company 4",
         "executiveId": 2
       },
       {
         "id": 5,
-        "name": "Small Co.",
-        "executiveId": 2
+        "name": "Company 5",
+        "executiveId": 1
       },
       {
         "id": 6,
-        "name": "Medium Co.",
-        "executiveId": 2
+        "name": "Company 6",
+        "executiveId": 3
+      },
+      {
+        "id": 7,
+        "name": "Company 7",
+        "executiveId": 4
+      },
+      {
+        "id": 8,
+        "name": "Company 8",
+        "executiveId": 3
+      },
+      {
+        "id": 9,
+        "name": "Company 9",
+        "executiveId": 4
+      },
+      {
+        "id": 10,
+        "name": "Company 10",
+        "executiveId": 3
       }
     ]
   }  
@@ -116,37 +158,44 @@ export default function Home() {
             </option>
           ))
       : []
-return (
+      
+  return(
     <div>
-    <h1>Executives and Companies</h1>
-    <div>
-    <select value={selectedExecutiveId} onChange={handleExecutiveChange}>
-    <option value={null}>Select an executive</option>
-    {executives}
-    </select>
-    <select value={selectedCompanyId} onChange={handleCompanyChange}>
-    <option value={null}>Select a company</option>
-    {companies}
-    </select>
-    <button onClick={handleReassign}>Reassign</button>
-    </div>
-    <ul>
-    {data.executives.map((executive) => (
-    <li key={executive.id}>
-    {executive.name}
-    <ul>
-    {executive.companies.map((companyId) => (
-    <li key={companyId}>
-    {data.companies.find((company) => company.id === companyId)
-    .name}
-    </li>
-    ))}
-    <p>----------------------------------------</p>
+      <h1>Executives and Companies</h1>
+      <div>
+        <select value={selectedExecutiveId} onChange={handleExecutiveChange}>
+          <option value={null}>Select an executive</option>
+          {executives}
+        </select>
+        <select value={selectedCompanyId} onChange={handleCompanyChange}>
+          <option value={null}>Select a company</option>
+          {companies}
+        </select>
+        <button onClick={handleReassign}>Reassign</button>
+      </div>
+      <ul>
+      {data.managers.map((manager) => (
+        <li key={manager.id}>
+          {manager.name}
+          <ul>
+            {manager.executives.map((executiveId) => {
+              const executive = data.executives.find(
+                (exec) => exec.id === executiveId
+              );
+              return executive.companies.map((companyId) => {
+                const company = data.companies.find(
+                  (comp) => comp.id === companyId
+                );
+                return (
+                  <li key={company.id}>{company.name}</li>
+                );
+              });
+            })}
+              <p>---------------------</p>
+          </ul>
+        </li>
+      ))}
     </ul>
-    </li>
-    ))}
-    </ul>
-    </div>
-    )
-    }
+  </div>
+  )};
          
