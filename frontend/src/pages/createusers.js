@@ -1,11 +1,11 @@
 import { Flex, Box, FormControl, FormLabel, Input, InputGroup, HStack, InputRightElement, Stack, Button, Heading, useColorModeValue, Select } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import axios from 'axios';
-//import { UserContext } from '@/context/UserContext';
+import { UserContext } from '@/context/UserContext';
   
 export default function CreateUsers() {
-    //const { role } = useContext(UserContext);
+    const { role } = useContext(UserContext);
     const [user, setUser] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
     const [showCpassword, setshowCpassword] = useState(false);
@@ -112,9 +112,13 @@ export default function CreateUsers() {
                   <option value="customerAdmin">Customer - Admin</option>
                   <option value="customerOfficer">Customer - Officer</option>
                   <option value="customerFinance">Customer - Finance</option>
-                  <option value="admin">Admin</option>
-                  <option value="manager">Manager</option>
-                  <option value="executive">Executive</option>
+                  {role === "admin" && (
+                    <>
+                      <option value="admin">Admin</option>
+                      <option value="manager">Manager</option>
+                      <option value="executive">Executive</option>
+                    </>
+                  )}
                 </Select>
               </FormControl>
               {formData.role === "executive" ? (
