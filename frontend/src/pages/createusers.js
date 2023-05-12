@@ -5,7 +5,7 @@ import axios from 'axios';
 import { UserContext } from '@/context/UserContext';
   
 export default function CreateUsers() {
-    const { role } = useContext(UserContext);
+    const { role, allCompanies } = useContext(UserContext);
     const [user, setUser] = useState([]);
     const [showPassword, setShowPassword] = useState(false);
     const [showCpassword, setshowCpassword] = useState(false);
@@ -19,12 +19,17 @@ export default function CreateUsers() {
       role: 'customerAdmin',
       status : 'active',
       report: 'admin',
+      reportCompany: [allCompanies ? allCompanies[0].companyName : ''],
     });
   
     const handleInputChange = (event) => {
       const { id, value } = event.target;
-      setFormData((formData) => ({ ...formData, [id]: value }));
-    };
+      if (id === 'reportCompany') {
+        setFormData((formData) => ({ ...formData, [id]: [value] }));
+      } else {
+        setFormData((formData) => ({ ...formData, [id]: value }));
+      }
+    };    
   
     const handleSubmit = async (event) => {
       event.preventDefault();
@@ -37,7 +42,7 @@ export default function CreateUsers() {
        });
   
       if (res.ok) console.log(formData);
-      //console.log(formData);
+      console.log(formData);
     };
 
     useEffect(() => {
@@ -122,14 +127,24 @@ export default function CreateUsers() {
                 </Select>
               </FormControl>
               {formData.role === "executive" ? (
-                <FormControl id="report" isRequired>
-                  <FormLabel>Assign to Manager</FormLabel>
-                  <Select value={formData.reportTo} onChange={handleInputChange}>
-                    {user.filter((u) => u.role === "manager").map((u, index) => (
-                      <option key={index} value={`${u.firstname} ${u.lastname}`}>{`${u.firstname} ${u.lastname}`}</option>
-                    ))}
-                  </Select>
+                <>
+                  <FormControl id="report" isRequired>
+                    <FormLabel>Assign to Manager</FormLabel>
+                    <Select value={formData.report} onChange={handleInputChange}>
+                      {user.filter((u) => u.role === "manager").map((u, index) => (
+                        <option key={index} value={`${u.firstname} ${u.lastname}`}>{`${u.firstname} ${u.lastname}`}</option>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <FormControl id="reportCompany" isRequired>
+                    <FormLabel>Assign to Company</FormLabel>
+                    <Select value={formData.reportCompany[0]} onChange={handleInputChange}>
+                      {allCompanies.map((company, index) => (
+                        <option key={index} value={company.companyName}>{company.companyName}</option>
+                      ))}
+                    </Select>
                 </FormControl>
+              </>
               ) : null}
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>

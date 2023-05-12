@@ -2,21 +2,18 @@ import connectToDatabase from '../../../database/conn';
 import Users from '../../../model/Schema';
 
 export default async function handler(req, res) {
-
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   await connectToDatabase();
-  const { firstname, lastname, email, username, password, cpassword , role, status, report } = req.body;
+  const { firstname, lastname, email, username, password, cpassword , role, status, report, reportCompany } = req.body;
 
-  // console.log(role)
-
-  if (!firstname || !lastname || !email || !username || !password|| !cpassword|| !role || !status || !report) {
-    res.status(422).json({ error: 'All fields are required' });
+  if (!firstname || !lastname || !email || !username || !password || !cpassword || !role || !status || !report || !reportCompany) {
+    return res.status(422).json({ error: 'All fields are required' });
   }
 
-  try{
+  try {
     const userExist = await Users.findOne({ $or: [{ username }, { email }] });
     if (userExist) {
       if (userExist.username === username) {
@@ -24,16 +21,17 @@ export default async function handler(req, res) {
       } else {
         return res.status(422).json({ error: 'Email already exists' });
       }
-    };
-    const user = new Users({ firstname, lastname, email, username, password, cpassword, role, status, report });
+    }
+
+    const user = new Users({ firstname, lastname, email, username, password, cpassword, role, status, report, reportCompany });
     const userRegistered = await user.save();
     if (userRegistered) {
-        res.status(201).json({ message: 'User registered successfully' });
+      return res.status(201).json({ message: 'User registered successfully' });
+    } else {
+      return res.status(500).json({ error: 'Registration failed' });
     }
-    else {
-        res.status(500).json({ error: 'Registration failed' });
-    }
-  } catch{
+  } catch (error) {
     console.log(error);
+    return res.status(500).json({ error: 'Registration failed' });
   }
 }

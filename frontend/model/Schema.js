@@ -36,7 +36,11 @@ const userSchema = new Schema({
     report: {
         type: String,
         required: true
-    }
+    },
+    reportCompany: [{
+        type: String,
+        required: true
+    }]
 }, { timestamps: true });
 
 const Users = models.user || model('user', userSchema);
