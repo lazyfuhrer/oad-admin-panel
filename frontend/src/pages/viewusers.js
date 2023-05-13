@@ -30,7 +30,7 @@ export default function ViewUsers() {
 
   return (
     user.filter(user => user.role !== "admin").map((user) => (
-      <Card key={user.username} mb={'10'} p={'5'}>
+      <Card key={user.username} mb={'1'} p={'5'}>
         <Stack direction="row" alignItems="center">
           <Stack>
             <Text fontWeight="bold">USERNAME: {user.username}</Text>
@@ -39,6 +39,7 @@ export default function ViewUsers() {
             <Text fontWeight="bold">ROLE: {user.role}</Text>
             <Text fontWeight="bold">REPORT TO: {user.report}</Text>
           </Stack>
+          <Stack>
           {
             role != 'executive' && (
               <>
@@ -48,6 +49,7 @@ export default function ViewUsers() {
               </>
             )
           }
+          </Stack>
         </Stack>
       </Card>
     ))
