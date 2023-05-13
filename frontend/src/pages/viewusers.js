@@ -1,10 +1,13 @@
+import DeleteUserAlertDialog from '@/components/DeleteAlert';
 import { UserContext } from '@/context/UserContext';
-import { Avatar, Button, Card, HStack, IconButton, Stack, Tag, Text, VStack } from '@chakra-ui/react';
+import { Button, Card, Stack, Text, useDisclosure } from '@chakra-ui/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 export default function ViewUsers() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
   const { role } = useContext(UserContext);
   const router = useRouter();
   const [user, setUser] = useState([]);
@@ -40,7 +43,8 @@ export default function ViewUsers() {
             role != 'executive' && (
               <>
                 <Button colorScheme='green' onClick={() => router.push(`/editusers?username=${user.username}`)}>Edit</Button>
-                <Button colorScheme='red' onClick={() => deleteUser(user)}>Delete</Button>
+                <Button colorScheme='red' onClick={onOpen}>Delete</Button>
+                <DeleteUserAlertDialog isOpen={isOpen} onClose={onClose} deleteUser={() => deleteUser(user)} />
               </>
             )
           }
