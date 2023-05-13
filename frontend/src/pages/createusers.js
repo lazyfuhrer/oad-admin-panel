@@ -131,19 +131,28 @@ export default function CreateUsers() {
                   <FormControl id="report" isRequired>
                     <FormLabel>Assign to Manager</FormLabel>
                     <Select value={formData.report} onChange={handleInputChange}>
-                      {user.filter((u) => u.role === "manager").map((u, index) => (
-                        <option key={index} value={`${u.firstname} ${u.lastname}`}>{`${u.firstname} ${u.lastname}`}</option>
-                      ))}
+                      {user
+                        .filter((u) => u.role === "manager")
+                        .sort((a, b) => a.firstname.localeCompare(b.firstname))
+                        .map((u, index) => (
+                          <option key={index} value={`${u.firstname} ${u.lastname}`}>
+                            {`${u.firstname} ${u.lastname}`}
+                          </option>
+                        ))}
                     </Select>
                   </FormControl>
                   <FormControl id="reportCompany" isRequired>
                     <FormLabel>Assign to Company</FormLabel>
                     <Select value={formData.reportCompany[0]} onChange={handleInputChange}>
-                      {allCompanies.map((company, index) => (
-                        <option key={index} value={company.companyName}>{company.companyName}</option>
-                      ))}
+                      {allCompanies
+                        .sort((a, b) => a.companyName.localeCompare(b.companyName))
+                        .map((company, index) => (
+                          <option key={index} value={company.companyName}>
+                            {company.companyName}
+                          </option>
+                        ))}
                     </Select>
-                </FormControl>
+                  </FormControl>
               </>
               ) : null}
               <FormControl id="password" isRequired>

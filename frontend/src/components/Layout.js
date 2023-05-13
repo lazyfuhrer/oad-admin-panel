@@ -48,7 +48,7 @@ export default function Layout({ children }) {
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4" bg={'#D3D3D3'}>
+      <Box ml={{ base: 0, md: 60 }} p="4" bg={'white'}>
         {children}
       </Box>
     </Box>
