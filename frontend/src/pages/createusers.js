@@ -19,7 +19,7 @@ export default function CreateUsers() {
       role: 'customerAdmin',
       status : 'active',
       report: 'admin',
-      reportCompany: [allCompanies ? allCompanies[0].companyName : ''],
+      reportCompany: [''],
     });
   
     const handleInputChange = (event) => {

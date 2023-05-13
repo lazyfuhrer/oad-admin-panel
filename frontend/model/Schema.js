@@ -37,10 +37,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    reportCompany: [{
-        type: String,
+    reportCompany: {
+        type: [String],
         required: true
-    }]
+    }
 }, { timestamps: true });
 
 const Users = models.user || model('user', userSchema);
