@@ -6,7 +6,10 @@ export default function Report() {
   const [executiveUsers, setExecutiveUsers] = useState([]);
   const [selectedManager, setSelectedManager] = useState('');
   const [selectedExecutive, setSelectedExecutive] = useState('');
+  const [selectedExecutiveCompanies, setSelectedExecutiveCompanies] = useState([]);
+  const [selectedCompany, setSelectedCompany] = useState('');
   const [availableExecutives, setAvailableExecutives] = useState([]);
+  const [availableCompanies, setAvailableCompanies] = useState([]);
 
   useEffect(() => {
     async function getUserData() {
@@ -44,6 +47,35 @@ export default function Report() {
     }
   }, [selectedManager, executiveUsers]);
 
+  useEffect(() => {
+    if (selectedExecutive) {
+      const executive = executiveUsers.find(
+        (executive) =>
+          `${executive.firstname} ${executive.lastname}` === selectedExecutive
+      );
+
+      if (executive) {
+        setSelectedExecutiveCompanies(executive.reportCompany);
+      }
+    } else {
+      setSelectedExecutiveCompanies([]);
+    }
+  }, [selectedExecutive, executiveUsers]);
+
+  useEffect(() => {
+    const assignedCompanies = executiveUsers.reduce(
+      (companies, executive) => [...companies, ...executive.reportCompany],
+      []
+    );
+
+    const uniqueAssignedCompanies = [...new Set(assignedCompanies)];
+    const unassignedCompanies = uniqueAssignedCompanies.filter(
+      (company) => !selectedExecutiveCompanies.includes(company)
+    );
+
+    setAvailableCompanies(unassignedCompanies);
+  }, [selectedExecutiveCompanies, executiveUsers]);
+
   // Create an object to group executives by manager name
   const executivesByManager = {};
 
@@ -58,7 +90,7 @@ export default function Report() {
   });
 
   // Function to handle reassigning an executive to a new manager and make API call
-  const handleReassign = async () => {
+  const handleReassignManager = async () => {
     if (selectedExecutive && selectedManager) {
       try {
         const response = await axios.put('/api/updatemanager', {
@@ -71,6 +103,56 @@ export default function Report() {
       }
     }
   };
+
+  // Function to handle reassigning an executive to a new manager and make API call
+  const handleReassignCompany = async () => {
+    if (selectedExecutive && selectedCompany) {
+      try {
+        // Find the executive assigned to the selectedCompany
+        const assignedExecutive = executiveUsers.find(
+          (executive) => executive.reportCompany.includes(selectedCompany)
+        );
+  
+        if (assignedExecutive) {
+          const assignedExecutiveUsername = assignedExecutive.username;
+  
+          // Make API call to remove selectedCompany from assignedExecutive's reportCompany
+          const removeCompanyResponse = await axios.delete('/api/deleteuser', {
+            data: {
+              executiveUsername: assignedExecutiveUsername,
+              company: selectedCompany
+            }
+          });
+  
+          console.log(removeCompanyResponse.data); // Handle the response as needed
+        }
+  
+        // Find the selectedExecutive
+        const selectedExecutiveObj = executiveUsers.find(
+          (executive) =>
+            `${executive.firstname} ${executive.lastname}` === selectedExecutive
+        );
+  
+        if (selectedExecutiveObj) {
+          // Add the selectedCompany to the selectedExecutive's reportCompany array
+          const updatedSelectedCompany = [
+            ...selectedExecutiveObj.reportCompany,
+            selectedCompany,
+          ];
+  
+          // Make API call to update the selectedExecutive's reportCompany
+          const updateCompanyResponse = await axios.put('/api/updatereportcompany', {
+            executiveUsername: selectedExecutiveObj.username,
+            reportCompany: updatedSelectedCompany
+          });
+  
+          console.log(updateCompanyResponse.data); // Handle the response as needed
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+  };  
 
   return (
     <>
@@ -93,13 +175,44 @@ export default function Report() {
             <option value="">All Executives</option>
             {availableExecutives.map((executive, index) => (
               <option key={index} value={`${executive.firstname} ${executive.lastname}`}>
-              {`${executive.firstname} ${executive.lastname}`}
+                {`${executive.firstname} ${executive.lastname}`}
               </option>
               ))}
-              </select>
-              </div>
-              <button onClick={handleReassign}>Reassign</button>
-  </div>
+          </select>
+        </div>
+        <button onClick={handleReassignManager}>Reassign</button>
+      </div>
+      {/* seperated ------------------------------------------------------------*/}
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div>
+          <label htmlFor="executiveDropdown">Select Executive: </label>
+          <select id="executiveDropdown" value={selectedExecutive} onChange={(e) => setSelectedExecutive(e.target.value)}>
+            <option value="">All Executives</option>
+            {executiveUsers.map((executive, index) => (
+              <option key={index} value={`${executive.firstname} ${executive.lastname}`}>
+                {`${executive.firstname} ${executive.lastname}`}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="companyDropdown">Select Company: </label>
+          <select
+            id="companyDropdown"
+            value={selectedCompany}
+            onChange={(e) => setSelectedCompany(e.target.value)}
+          >
+            <option value="">All Companies</option>
+            {availableCompanies.map((company, index) => (
+              <option key={index} value={company}>
+                {company}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button onClick={handleReassignCompany}>Reassign</button>
+      </div>
 
   <h1>Managers:</h1>
   {managerUsers.map((manager, index) => {
