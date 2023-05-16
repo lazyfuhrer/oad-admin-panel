@@ -1,20 +1,40 @@
-import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button } from '@chakra-ui/react';
-import { useRef } from 'react'
+import { useState } from 'react';
+import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Button } from '@chakra-ui/react';
 
-export default function DeleteUserAlertDialog({ isOpen, onClose, deleteUser }) {
-  const cancelRef = useRef();
+const DeleteUserAlertDialog = ({ isOpen, onClose, user, onDelete }) => {
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    await onDelete();
+    setIsDeleting(false);
+    onClose();
+  };
+
   return (
-    <AlertDialog motionPreset='slideInBottom' leastDestructiveRef={cancelRef} onClose={onClose} isOpen={isOpen} isCentered>
-      <AlertDialogOverlay />
-      <AlertDialogContent>
-        <AlertDialogHeader>Delete User?</AlertDialogHeader>
-        <AlertDialogCloseButton />
-        <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
-        <AlertDialogFooter>
-          <Button ref={cancelRef} onClick={onClose}>No</Button>
-          <Button onClick={deleteUser} colorScheme='red' ml={3}>Yes</Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
+    <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
+      <AlertDialogOverlay>
+        <AlertDialogContent>
+          <AlertDialogHeader fontSize="lg" fontWeight="bold">
+            Delete User
+          </AlertDialogHeader>
+
+          <AlertDialogBody>
+            Are you sure you want to delete the user: {user}?
+          </AlertDialogBody>
+
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={onClose} isDisabled={isDeleting}>
+              Cancel
+            </Button>
+            <Button colorScheme="red" onClick={handleDelete} ml={3} isLoading={isDeleting}>
+              Delete
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
     </AlertDialog>
   );
 };
+
+export default DeleteUserAlertDialog;
