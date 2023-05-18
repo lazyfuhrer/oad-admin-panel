@@ -8,9 +8,12 @@ import {
   Select,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 
 export default function Report() {
+  const toast = useToast();
+
   const [managerUsers, setManagerUsers] = useState([]);
   const [executiveUsers, setExecutiveUsers] = useState([]);
   const [selectedManager, setSelectedManager] = useState("");
@@ -115,6 +118,13 @@ export default function Report() {
           executive: selectedExecutive,
           manager: selectedManager,
         });
+        toast({
+          title: "Reassign Manager",
+          description: "Executive reassigned to a different manager successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
         console.log(response.data); // Handle the response as needed
       } catch (error) {
         console.error("Error:", error);
@@ -165,6 +175,13 @@ export default function Report() {
             }
           );
 
+          toast({
+            title: "Reassign Company",
+            description: "Executive reassigned to a different company successfully.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
           console.log(updateCompanyResponse.data); // Handle the response as needed
         }
       } catch (error) {
