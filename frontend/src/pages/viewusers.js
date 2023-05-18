@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useRef } from 'react';
 import { UserContext } from '@/context/UserContext';
-import { Button, Card, Stack, Text, useDisclosure, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Spinner } from '@chakra-ui/react';
+import { Button, Box, Grid, Text, useDisclosure, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, Spinner, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 
@@ -12,6 +12,7 @@ export default function ViewUsers() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const cancelRef = useRef();
+  const toast = useToast(); // Initialize the useToast hook
 
   useEffect(() => {
     async function getUserData() {
@@ -29,6 +30,15 @@ export default function ViewUsers() {
     try {
       const res = await axios.delete(`/api/deleteuser?username=${username}`);
       console.log(res);
+      // Display success toast notification
+      toast({
+        title: 'User Deleted',
+        description: `User ${selectedUser.username} has been successfully deleted.`,
+        status: 'success', // Set the status to 'error' for red color
+        position: 'top-right', // Display toast at the top right
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
       console.error(error);
     } finally {
@@ -49,9 +59,9 @@ export default function ViewUsers() {
 
   const renderUserCards = () => {
     return users
-      .filter(user => user.role !== 'admin')
-      .map(user => (
-        <Card
+      .filter((user) => user.role !== 'admin')
+      .map((user) => (
+        <Box
           key={user.username}
           mb="4"
           p="3"
@@ -63,15 +73,15 @@ export default function ViewUsers() {
           _hover={{ cursor: 'pointer', transform: 'scale(1.05)' }}
           onClick={() => router.push(`/editusers?username=${user.username}`)}
         >
-          <Stack spacing="2">
+          <Grid gap="2">
             <Text fontWeight="bold">USERNAME: {user.username}</Text>
             <Text fontWeight="bold">NAME: {`${user.firstname} ${user.lastname}`}</Text>
             <Text fontWeight="bold">EMAIL: {user.email}</Text>
             <Text fontWeight="bold">ROLE: {user.role}</Text>
             <Text fontWeight="bold">REPORT TO: {user.report}</Text>
-          </Stack>
+          </Grid>
           {role !== 'executive' && (
-            <Stack mt="3" direction="column" spacing="2">
+            <Grid mt="3" gap="2" direction="column">
               <Button
                 colorScheme="green"
                 onClick={(e) => {
@@ -90,14 +100,14 @@ export default function ViewUsers() {
               >
                 Delete
               </Button>
-            </Stack>
+            </Grid>
           )}
-        </Card>
+        </Box>
       ));
   };
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '10px' }}>
+    <Grid templateColumns="repeat(3, 1fr)" gap="10px">
       {renderUserCards()}
       {selectedUser && (
         <AlertDialog isOpen={isOpen} motionPreset="slideInBottom" leastDestructiveRef={cancelRef} onClose={onClose} isCentered>
@@ -123,6 +133,6 @@ export default function ViewUsers() {
           </AlertDialogOverlay>
         </AlertDialog>
       )}
-    </div>
+    </Grid>
   );
-};
+}
