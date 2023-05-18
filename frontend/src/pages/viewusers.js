@@ -47,45 +47,60 @@ export default function ViewUsers() {
     onClose();
   };
 
+  const renderUserCards = () => {
+    return users
+      .filter(user => user.role !== 'admin')
+      .map(user => (
+        <Card
+          key={user.username}
+          mb="4"
+          p="3"
+          borderWidth="1px"
+          borderRadius="md"
+          borderColor="gray.200"
+          boxShadow="md"
+          transition="0.3s"
+          _hover={{ cursor: 'pointer', transform: 'scale(1.05)' }}
+          onClick={() => router.push(`/editusers?username=${user.username}`)}
+        >
+          <Stack spacing="2">
+            <Text fontWeight="bold">USERNAME: {user.username}</Text>
+            <Text fontWeight="bold">NAME: {`${user.firstname} ${user.lastname}`}</Text>
+            <Text fontWeight="bold">EMAIL: {user.email}</Text>
+            <Text fontWeight="bold">ROLE: {user.role}</Text>
+            <Text fontWeight="bold">REPORT TO: {user.report}</Text>
+          </Stack>
+          {role !== 'executive' && (
+            <Stack mt="3" direction="column" spacing="2">
+              <Button
+                colorScheme="green"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  router.push(`/editusers?username=${user.username}`);
+                }}
+              >
+                Edit
+              </Button>
+              <Button
+                colorScheme="red"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteConfirmation(user);
+                }}
+              >
+                Delete
+              </Button>
+            </Stack>
+          )}
+        </Card>
+      ));
+  };
+
   return (
-    <>
-      {users
-        .filter(user => user.role !== 'admin')
-        .map(user => {
-          return (
-            <Card key={user.username} mb="1" p="5">
-              <Stack direction="row" alignItems="center">
-                <Stack>
-                  <Text fontWeight="bold">USERNAME: {user.username}</Text>
-                  <Text fontWeight="bold">NAME: {`${user.firstname} ${user.lastname}`}</Text>
-                  <Text fontWeight="bold">EMAIL: {user.email}</Text>
-                  <Text fontWeight="bold">ROLE: {user.role}</Text>
-                  <Text fontWeight="bold">REPORT TO: {user.report}</Text>
-                </Stack>
-                <Stack>
-                  {role !== 'executive' && (
-                    <>
-                      <Button
-                        colorScheme="green"
-                        onClick={() => router.push(`/editusers?username=${user.username}`)}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        colorScheme="red"
-                        onClick={() => handleDeleteConfirmation(user)}
-                      >
-                        Delete
-                      </Button>
-                    </>
-                  )}
-                </Stack>
-              </Stack>
-            </Card>
-          );
-        })}
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gridGap: '10px' }}>
+      {renderUserCards()}
       {selectedUser && (
-        <AlertDialog isOpen={isOpen} motionPreset='slideInBottom' leastDestructiveRef={cancelRef} onClose={onClose} isCentered>
+        <AlertDialog isOpen={isOpen} motionPreset="slideInBottom" leastDestructiveRef={cancelRef} onClose={onClose} isCentered>
           <AlertDialogOverlay>
             <AlertDialogContent>
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
@@ -108,6 +123,6 @@ export default function ViewUsers() {
           </AlertDialogOverlay>
         </AlertDialog>
       )}
-    </>
+    </div>
   );
 };
