@@ -1,25 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Select,
-  Stack,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Select, Stack, Text, useToast } from "@chakra-ui/react";
 
 export default function Report() {
   const toast = useToast();
-
   const [managerUsers, setManagerUsers] = useState([]);
   const [executiveUsers, setExecutiveUsers] = useState([]);
   const [selectedManager, setSelectedManager] = useState("");
   const [selectedExecutive, setSelectedExecutive] = useState("");
-  const [selectedExecutiveCompanies, setSelectedExecutiveCompanies] =
-    useState([]);
+  const [selectedExecutiveCompanies, setSelectedExecutiveCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState("");
   const [availableExecutives, setAvailableExecutives] = useState([]);
   const [availableCompanies, setAvailableCompanies] = useState([]);
@@ -119,7 +108,8 @@ export default function Report() {
           manager: selectedManager,
         });
         toast({
-          title: "Reassign Manager",
+          title: "Reassign Executive",
+          position: 'top-right',
           description: "Executive reassigned to a different manager successfully.",
           status: "success",
           duration: 5000,
@@ -177,7 +167,8 @@ export default function Report() {
 
           toast({
             title: "Reassign Company",
-            description: "Executive reassigned to a different company successfully.",
+            position: 'top-right',
+            description: "Company has been reassigned to a different executed successfully.",
             status: "success",
             duration: 5000,
             isClosable: true,
