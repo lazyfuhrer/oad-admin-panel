@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Button, FormControl, FormLabel, Select, Stack, Text, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Select,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
 
 export default function Report() {
   const toast = useToast();
@@ -109,7 +118,7 @@ export default function Report() {
         });
         toast({
           title: "Reassign Executive",
-          position: 'top-right',
+          position: "top-right",
           description: "Executive reassigned to a different manager successfully.",
           status: "success",
           duration: 5000,
@@ -167,8 +176,8 @@ export default function Report() {
 
           toast({
             title: "Reassign Company",
-            position: 'top-right',
-            description: "Company has been reassigned to a different executed successfully.",
+            position: "top-right",
+            description: "Company has been reassigned to a different executive successfully.",
             status: "success",
             duration: 5000,
             isClosable: true,
@@ -182,21 +191,17 @@ export default function Report() {
   };
 
   return (
-    <Stack spacing={4}>
-      <Stack direction="row">
+    <Stack spacing={4} p={4}>
+      <Stack direction="row" align="center">
         <FormControl>
-          <FormLabel htmlFor="managerDropdown">Select Manager:</FormLabel>
+          <FormLabel>Select Manager:</FormLabel>
           <Select
-            id="managerDropdown"
             value={selectedManager}
             onChange={(e) => setSelectedManager(e.target.value)}
           >
             <option value="">All Managers</option>
             {managerUsers.map((manager, index) => (
-              <option
-                key={index}
-                value={`${manager.firstname} ${manager.lastname}`}
-              >
+              <option key={index} value={`${manager.firstname} ${manager.lastname}`}>
                 {`${manager.firstname} ${manager.lastname}`}
               </option>
             ))}
@@ -204,40 +209,33 @@ export default function Report() {
         </FormControl>
 
         <FormControl>
-          <FormLabel htmlFor="executiveDropdown">Select Executive:</FormLabel>
+          <FormLabel>Select Executive:</FormLabel>
           <Select
-            id="executiveDropdown"
             value={selectedExecutive}
             onChange={(e) => setSelectedExecutive(e.target.value)}
           >
             <option value="">All Executives</option>
             {availableExecutives.map((executive, index) => (
-              <option
-                key={index}
-                value={`${executive.firstname} ${executive.lastname}`}
-              >
+              <option key={index} value={`${executive.firstname} ${executive.lastname}`}>
                 {`${executive.firstname} ${executive.lastname}`}
               </option>
             ))}
           </Select>
         </FormControl>
-        <Button onClick={handleReassignManager}>Reassign</Button>
+
+        <Button colorScheme="blue" onClick={handleReassignManager}>Reassign</Button>
       </Stack>
 
-      <Stack direction="row">
+      <Stack direction="row" align="center">
         <FormControl>
-          <FormLabel htmlFor="executiveDropdown">Select Executive:</FormLabel>
+          <FormLabel>Select Executive:</FormLabel>
           <Select
-            id="executiveDropdown"
             value={selectedExecutive}
             onChange={(e) => setSelectedExecutive(e.target.value)}
           >
             <option value="">All Executives</option>
             {executiveUsers.map((executive, index) => (
-              <option
-                key={index}
-                value={`${executive.firstname} ${executive.lastname}`}
-              >
+              <option key={index} value={`${executive.firstname} ${executive.lastname}`}>
                 {`${executive.firstname} ${executive.lastname}`}
               </option>
             ))}
@@ -245,9 +243,8 @@ export default function Report() {
         </FormControl>
 
         <FormControl>
-          <FormLabel htmlFor="companyDropdown">Select Company:</FormLabel>
+          <FormLabel>Select Company:</FormLabel>
           <Select
-            id="companyDropdown"
             value={selectedCompany}
             onChange={(e) => setSelectedCompany(e.target.value)}
           >
@@ -259,18 +256,19 @@ export default function Report() {
             ))}
           </Select>
         </FormControl>
-        <Button onClick={handleReassignCompany}>Reassign</Button>
+
+        <Button colorScheme="blue" onClick={handleReassignCompany}>Reassign</Button>
       </Stack>
 
       <Box>
-        {Object.keys(executivesByManager).map((managerName, index) => (
-          <Box key={index} mb={4}>
-            <Text fontWeight="bold">{managerName}</Text>
-            {executivesByManager[managerName].map((executive, index) => (
-              <Text key={index} ml={4}>
-                {executive}
-              </Text>
-            ))}
+        {Object.keys(executivesByManager).map((manager, index) => (
+          <Box key={index} mt={4}>
+            <Text fontWeight="bold">{manager}:</Text>
+            <Stack pl={4} mt={2}>
+              {executivesByManager[manager].map((executive, index) => (
+                <Text key={index}>{executive}</Text>
+              ))}
+            </Stack>
           </Box>
         ))}
       </Box>
