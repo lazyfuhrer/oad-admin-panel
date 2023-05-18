@@ -117,7 +117,7 @@ export default function Report() {
           const assignedExecutiveUsername = assignedExecutive.username;
   
           // Make API call to remove selectedCompany from assignedExecutive's reportCompany
-          const removeCompanyResponse = await axios.delete('/api/deleteuser', {
+          const removeCompanyResponse = await axios.delete('/api/deletecompany', {
             data: {
               executiveUsername: assignedExecutiveUsername,
               company: selectedCompany

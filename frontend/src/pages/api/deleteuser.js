@@ -8,25 +8,12 @@ export default async function handler(req, res) {
 
   await connectToDatabase();
 
-  const { executiveUsername, company } = req.body;
-
+  const { username } = req.query;
   try {
-    const executive = await User.findOne({ username: executiveUsername });
-
-    if (!executive) {
-      return res.status(404).json({ error: 'Executive not found' });
-    }
-
-    // Remove the company from the executive's reportCompany array
-    executive.reportCompany = executive.reportCompany.filter(
-      (c) => c !== company
-    );
-
-    await executive.save();
-
-    res.status(200).json({ message: 'Company removed successfully' });
+    const deletedUser = await User.findOneAndDelete({ username });
+    res.status(200).json(deletedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).send('An error occurred while removing the company from the executive');
+    res.status(500).send('An error occurred while deleting the user.');
   }
 }
