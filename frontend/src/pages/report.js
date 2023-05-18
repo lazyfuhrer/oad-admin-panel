@@ -115,7 +115,7 @@ export default function Report() {
           duration: 5000,
           isClosable: true,
         });
-        console.log(response.data); // Handle the response as needed
+        console.log(response.data);
       } catch (error) {
         console.error("Error:", error);
       }
@@ -173,7 +173,7 @@ export default function Report() {
             duration: 5000,
             isClosable: true,
           });
-          console.log(updateCompanyResponse.data); // Handle the response as needed
+          console.log(updateCompanyResponse.data);
         }
       } catch (error) {
         console.error("Error:", error);
