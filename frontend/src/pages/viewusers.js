@@ -12,7 +12,7 @@ export default function ViewUsers() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const cancelRef = useRef();
-  const toast = useToast(); // Initialize the useToast hook
+  const toast = useToast();
 
   useEffect(() => {
     async function getUserData() {
@@ -30,12 +30,11 @@ export default function ViewUsers() {
     try {
       const res = await axios.delete(`/api/deleteuser?username=${username}`);
       console.log(res);
-      // Display success toast notification
       toast({
         title: 'User Deleted',
         description: `User ${selectedUser.username} has been successfully deleted.`,
-        status: 'success', // Set the status to 'error' for red color
-        position: 'top-right', // Display toast at the top right
+        status: 'success',
+        position: 'top-right',
         duration: 3000,
         isClosable: true,
       });
