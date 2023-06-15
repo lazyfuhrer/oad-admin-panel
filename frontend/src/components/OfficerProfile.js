@@ -4,7 +4,7 @@ import { FaExclamationTriangle } from "react-icons/fa";
 
 export default function OfficerProfile({ name, country, mobileNumber, email, address, avatarUrl, licensed }) {
   return (
-    <Box bg="white" w="360px" borderRadius="lg" p={4} color={'black'}>
+    <Box maxW="250px" p={4}>
       <Flex justify="space-between" align="center" mb={4}>
         <Avatar size="lg" name={name} src={avatarUrl} />
         <Box textAlign="left">
