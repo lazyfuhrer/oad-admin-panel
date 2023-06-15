@@ -59,18 +59,37 @@ export default function CompanyInfo() {
       {data.length > 0 && (
         <Stack spacing={'2'} mb={'1'}>
           <Box mb={'5'}>
-            <CompanyInfoCard field={'UEN'} value={companyData?.acra_uen} />
-            <CompanyInfoCard field={'COMPANY NAME'} value={companyData?.entity_name} />
-            <CompanyInfoCard field={'INCORPORATION DATE'} value={companyData?.incorporation_date} />
-            <CompanyInfoCard field={'COMPANY TYPE'} value={companyData?.entity_type} />
-            <CompanyInfoCard field={'PRINCIPAL ACTIVITY 1'} value={companyData?.default_ssic_description_I} />
-            <CompanyInfoCard field={'PRINCIPAL ACTIVITY 2'} value={companyData?.default_ssic_description_II} />
+            <CompanyInfoCard field={'UEN'} value={companyData?.acra_uen == 0 ? 'UEN UNASSIGNED' : companyData?.acra_uen} />
+            <CompanyInfoCard
+              field={'COMPANY NAME'}
+              value={companyData?.entity_name}
+            />
+            <CompanyInfoCard
+              field={'INCORPORATION DATE'}
+              value={companyData?.incorporation_date}
+            />
+            <CompanyInfoCard
+              field={'COMPANY TYPE'}
+              value={
+                companyData?.entity_type == 1
+                  ? 'PRIVATE COMPANY LIMITED BY SHARES'
+                  : companyData?.entity_type
+              }
+            />
+            <CompanyInfoCard
+              field={'PRINCIPAL ACTIVITY 1'}
+              value={companyData?.default_ssic_description_I}
+            />
+            <CompanyInfoCard
+              field={'PRINCIPAL ACTIVITY 2'}
+              value={companyData?.default_ssic_description_II}
+            />
             <CompanyInfoCard field={'REGISTERED OFFICE ADDRESS'} value={companyAddress} />
             <CompanyInfoCard field={'FINANCIAL YEAR END'} value={''} />
             <CompanyInfoCard field={'DATE OF LAST AGM'} value={''} />
             <CompanyInfoCard field={'WEBSITE'} value={companyData?.website} />
           </Box>
-        </Stack>
+        </Stack>      
       )}
     </>
   );
