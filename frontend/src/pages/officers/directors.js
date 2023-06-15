@@ -24,7 +24,7 @@ export default function Directors() {
 
   const address = matchingCompany
     ? `${matchingCompany.companyBlock}, ${matchingCompany.companyBuilding}, ${matchingCompany.companyStreet}, ${matchingCompany.companyLevel}, ${matchingCompany.companyCity}, ${matchingCompany.companyPincode}`
-    : "";
+    : "";  
 
   return (
     <>
